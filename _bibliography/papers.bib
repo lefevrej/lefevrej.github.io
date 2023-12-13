@@ -1,6 +1,15 @@
 ---
 ---
 
+@inproceedings{key,
+  author          = {Josselin Lefèvre and Jean Cousty and Benjamin Perret and Harold Phelippeau},
+  title           = {Out-of-core Attribute Algorithms for Binary Partition Hierarchies},
+  year            = {2024},
+  abstract        = {Binary Partition Hierarchies (BPHs) and Minimum Spanning Trees are key structures in hierarchical image analysis. However, the explosion in the size of image data poses a new challenge, as the memory available in conventional workstations becomes insufficient to execute classical algorithms. To address this problem, specific algorithms have been proposed for out-of-core computation of BPHs, where a BPH is actually represented by a collection of smaller trees, called a distribution, thus reducing the memory footprint of the algorithms. In this article, we address the problem of designing efficient out-of-core algorithms for computing classical attributes in distributions of BPHs, which is a necessary step towards a complete out-of-core hierarchical analysis workflow that includes tasks such as connected filtering and the generation of other representations such as hierarchical watersheds. The proposed algorithms are based on generic operations designed to propagate information through the distribution of trees, enabling the computation of attributes such as area, volume, height, minima and number of minima.},
+  abbr            = {preprint},
+  selected        = {true},
+}
+
 @inproceedings{LefevreCPP22,
   title = {Join, Select, and Insert: Efficient Out-of-core Algorithms for Hierarchical Segmentation Trees},
   author = {Josselin Lefèvre and Jean Cousty and Benjamin Perret and Harold Phelippeau},
@@ -21,6 +30,7 @@
   bibtex_show = {true},
   selected = {true},
 }
+
 @inproceedings{lebon2023iws,
   author      = {Lebon, Quentin
                  and Lef{\`e}vre, Josselin
@@ -38,6 +48,7 @@
   abstract    = {In this article, we propose an incremental method for computing seeded watershed cuts for interactive image segmentation. We propose an algorithm based on the hierarchical image representation called the binary partition tree to compute a seeded watershed cut. We show that this algorithm fits perfectly in an interactive segmentation process by handling user interactions, seed addition or removal, in time linear with respect to the number of affected pixels. Run time comparisons with several state-of-the-art interactive and non-interactive watershed methods show that the proposed method can handle user interactions much faster than previous methods achieving significant speedup from 15 to 90, thus improving the user experience on large images.},
   isbn        = {978-3-031-49018-7},
   preview     = {iws.gif},
+  html        = {https://doi.org/10.1007/978-3-031-49018-7_14},
   pdf         = {https://hal.science/hal-04069187v3/file/CIARP_2023___Interactive_segmentation_with_incremental_watershed_cuts.pdf},
   bibtex_show = {true},
   selected    = {true},

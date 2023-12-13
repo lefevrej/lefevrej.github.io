@@ -1,7 +1,7 @@
 {
   "basics": {
     "name": "Josselin Lefèvre",
-    "label": "PhD Candidate",
+    "label": "",
     "image": "prof_pic.jpg",
     "email": "",
     "phone": "",
@@ -39,7 +39,7 @@
     {
       "institution": "ESIEE Paris, France",
       "location": "France",
-      "url": "https://www.uzh.ch/",
+      "url": "https://www.esiee.fr/",
       "area": "Computer Science",
       "studyType": "Engineering degree ",
       "startDate": "2016",
@@ -47,6 +47,7 @@
       "score": "1st",
       "courses": [
         "Mathematical Morphology",
+        "Image Processing",
         "Deep-Learning",
         "Distributed Computing",
         "Massive parallelization GPGPU"
