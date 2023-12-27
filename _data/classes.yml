@@ -1,0 +1,43 @@
+- year: 2023
+  classes:
+    - name: Introduction to Image Analysis - 19h
+      role: Teaching Assistant
+      level: master 1
+      description:
+        - item: "Mathematical morphology: basic operators"
+        - item:  Application of morphological operators by structuring elements to binary and grayscale image processing
+        - item:  Application of morphological connected operators to binary and grayscale images
+        - item:  Watershed segmentation
+- year: 2022 - 2023
+  classes:
+    - name: Introduction to Algorithms - 18h + 14h
+      role: Teaching Assistant
+      level: license 3
+      description:
+        - item:  Complexity analysis  
+        - item:  Sorting algorithms
+        - item:  Linked lists
+
+- year: 2022 - 2023
+  classes:
+    - name: Algorithm Design - 20h + 20h
+      role: Teaching Assistant
+      level: master 1
+      description:
+        - item:  Algorithm complexity
+        - item:  Data structures
+        - item:  Divide and conquer
+        - item:  Greedy algorithms
+        - item:  Dynamic programming
+
+# - year: 2021
+#   classes:
+#     - name: Introduction to Deep Learning
+#       role: Teaching Assistant
+#       description:
+#         - item: Mathematical Morphology
+#           slides: https://example.com/slides/mathematical-morphology
+#           site: https://example.com/sites/mathematical-morphology
+#         - item: Image Processing
+#           slides: https://example.com/slides/image-processing
+#           site: https://example.com/sites/image-processing
