@@ -4,3 +4,14 @@
 
 "PhysRev":
   url: https://journals.aps.org/
+
+"Preprint":
+  color: "#6e6e6e"
+
+"DGMM":
+  url: https://dgmm2024.dimai.unifi.it/
+  color: "#28a745"
+
+"CIARP":
+  url: https://ciarp2023.isec.pt/
+  color: "#6610f2"
