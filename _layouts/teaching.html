@@ -5,7 +5,6 @@ layout: default
 <div class="post">
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-description">{{ page.description }}</p>
   </header>
   {% for year in site.data.classes %}
   <div class="year">
@@ -22,20 +21,26 @@ layout: default
             </span>
           </div>
         </div>
-        <h6 class="font-italic mt-2 mt-sm-0">{{ class.role }}</h6>
+        <h6 class="font-italic mt-2 mt-sm-0">{{ class.role }} - Level: {{ class.level }}</h6>
+        <tr>
+          <td style="vertical-align: top; text-align: center;" class="institution"><i class="fa-solid fa-building-columns iconinstitution"></i></td>
+          <td class="institution">
+            <a href="{{ class.institution.site }}" target="_blank">{{ class.institution.name }}</a>
+          </td>
+        </tr>        
         <ul class="card-text font-weight-light list-group list-group-flush">
           {% for item in class.description %}
           <li class="list-group-item">
             <div class="row">
-              <div class="col-sm-9">
+              <div class="col-sm-11">
                 {{ item.item }}
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-1">
                 {% if item.slides %}
-                <a href="{{ item.slides }}" target="_blank" rel="noopener noreferrer">slides</a>&nbsp;
+                [<a href="{{ item.slides }}" target="_blank" rel="noopener noreferrer">slides</a>]&nbsp;
                 {% endif %}
                 {% if item.site %}
-                <a href="{{ item.site }}" target="_blank" rel="noopener noreferrer">site</a>&nbsp;
+                [<a href="{{ item.site }}" target="_blank" rel="noopener noreferrer">site</a>]&nbsp;
                 {% endif %}
               </div>
             </div>

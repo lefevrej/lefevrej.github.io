@@ -1,16 +1,25 @@
 - year: 2023
   classes:
     - name: Introduction to Image Analysis - 19h
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/
       role: Teaching Assistant
       level: master 1
       description:
         - item: "Mathematical morphology: basic operators"
+          site: http://www.esiee.fr/~coustyj/EnglishMorphoGraph/TP1.html
         - item:  Application of morphological operators by structuring elements to binary and grayscale image processing
+          site: http://www.esiee.fr/~coustyj/EnglishMorphoGraph/PS4.html
         - item:  Application of morphological connected operators to binary and grayscale images
+          site: http://www.esiee.fr/~coustyj/EnglishMorphoGraph/PS5.html
         - item:  Watershed segmentation
 - year: 2022 - 2023
   classes:
     - name: Introduction to Algorithms - 18h + 14h
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/
       role: Teaching Assistant
       level: license 3
       description:
@@ -21,6 +30,9 @@
 - year: 2022 - 2023
   classes:
     - name: Algorithm Design - 20h + 20h
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/    
       role: Teaching Assistant
       level: master 1
       description:
