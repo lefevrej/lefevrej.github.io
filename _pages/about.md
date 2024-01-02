@@ -7,6 +7,7 @@ subtitle: PhD student at <a href="https://www.thermofisher.com/fr/fr/home.html">
 profile:
   align: right
   image: prof_pic.jpg
+  alt: Josselin Lefevre
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>Paris area, France</p>
