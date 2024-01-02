@@ -7,18 +7,19 @@ layout: default
     <h1 class="post-title">{{ page.title }}</h1>
   </header>
   {% for year in site.data.classes %}
-  <div class="year">
+  <div class="publications">
+    <h2 class="bibliography mb-3">{{ year.year }}</h2>
     {% for class in year.classes %}
     <div class="card mt-3 p-3">
       <!-- Badge -->
       <div class="text-center mb-3 mb-md-0"> 
         <span class="badge_year font-weight-bold text-uppercase align-middle">
-          {{ year.year }}
+          {{ class.level }}
         </span>
       </div>
       <!-- Name -->
       <h5 class="font-weight-bold mt-2 mt-md-0">{{ class.name }}</h5>
-      <h6 class="font-italic">{{ class.role }} - Level: {{ class.level }}</h6>
+      <h6 class="font-italic">{{ class.role }}</h6>
 
       <!-- Institution -->
       <div class="institution d-flex align-items-center">

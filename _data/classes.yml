@@ -14,22 +14,8 @@
         - item:  Application of morphological connected operators to binary and grayscale images
           site: http://www.esiee.fr/~coustyj/EnglishMorphoGraph/PS5.html
         - item:  Watershed segmentation
-- year: 2022 - 2023
-  classes:
-    - name: Introduction to Algorithms - 18h + 14h
-      institution: 
-        name: ESIEE Paris
-        site: https://www.esiee.fr/
-      role: Teaching Assistant
-      level: license 3
-      description:
-        - item:  Complexity analysis  
-        - item:  Sorting algorithms
-        - item:  Linked lists
 
-- year: 2022 - 2023
-  classes:
-    - name: Algorithm Design - 20h + 16h
+    - name: Algorithm Design - 20h
       institution: 
         name: ESIEE Paris
         site: https://www.esiee.fr/    
@@ -42,14 +28,39 @@
         - item:  Greedy algorithms
         - item:  Dynamic programming
 
-# - year: 2021
-#   classes:
-#     - name: Introduction to Deep Learning
-#       role: Teaching Assistant
-#       description:
-#         - item: Mathematical Morphology
-#           slides: https://example.com/slides/mathematical-morphology
-#           site: https://example.com/sites/mathematical-morphology
-#         - item: Image Processing
-#           slides: https://example.com/slides/image-processing
-#           site: https://example.com/sites/image-processing
+    - name: Introduction to Algorithms - 18h 
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/
+      role: Teaching Assistant
+      level: license 3
+      description:
+        - item:  Complexity analysis  
+        - item:  Sorting algorithms
+        - item:  Linked lists
+
+- year: 2022
+  classes:
+    - name: Introduction to Algorithms - 14h
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/
+      role: Teaching Assistant
+      level: license 3
+      description:
+        - item:  Complexity analysis  
+        - item:  Sorting algorithms
+        - item:  Linked lists
+
+    - name: Algorithm Design - 16h
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/    
+      role: Teaching Assistant
+      level: master 1
+      description:
+        - item:  Algorithm complexity
+        - item:  Data structures
+        - item:  Divide and conquer
+        - item:  Greedy algorithms
+        - item:  Dynamic programming
