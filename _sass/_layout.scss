@@ -59,6 +59,9 @@ body.sticky-bottom-footer {
     padding-right: 1rem;
     a {
       color: white !important;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }
