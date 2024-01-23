@@ -86,10 +86,6 @@ d-article {
           border-bottom: 1px solid var(--global-text-color) !important;
         }
       }
-      h3 {
-        margin-top: 0;
-        margin-bottom: 1em;
-      }
       div {
         display: block;
         outline: none;
@@ -119,6 +115,19 @@ d-article {
   d-footnote {
     scroll-margin-top: 66px;
   }
+}
+
+d-article h2 {
+  margin: 1rem 0 1rem 0 !important;
+  padding-bottom: 0rem !important;
+}
+
+d-article h3 {
+  margin: 1rem 0 .5rem 0 !important;
+}
+
+d-article blockquote {
+  font-style: normal !important;
 }
 
 d-appendix {
