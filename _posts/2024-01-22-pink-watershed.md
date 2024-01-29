@@ -21,7 +21,7 @@ authors:
 toc:
     - name: Problem 1 Uranium oxide
     - name: Problem 2 Segmentation of red blood cells
-    - name: How To
+    - name: How To Watershed with PINK
 ---
 
 ## Problem 1 Uranium oxide
@@ -48,7 +48,7 @@ toc:
 | - [GA2khalimsky](https://perso.esiee.fr/~coupriem/Pink/doc/html/GA2khalimsky_8c.html) | - [frame](https://perso.esiee.fr/~coupriem/Pink/doc/html/frame_8c.html) |
 | - [nbcomp](https://perso.esiee.fr/~coupriem/Pink/doc/html/nbcomp_8c.html) | - [area](https://perso.esiee.fr/~coupriem/Pink/doc/html/area_8c.html) |
 
-> Hint: you can use the [How to](#how-to) below to find some useful pink commands :wink:
+> **Hint**: you can use the [How to Watershed with PINK](#how-to-watershed-with-pink) section below to find some useful pink commands :wink:
 
 ## Problem 2 Segmentation of red blood cells
 
@@ -58,7 +58,7 @@ toc:
         zoomable=true %}
     </div>
     <div class="col-sm mt-md-0">
-        {% include figure.liquid path="assets/img/bloodcells.png" class="img-fluid rounded z-depth-1"
+        {% include figure.liquid path="assets/img/bloodcells_ws.png" class="img-fluid rounded z-depth-1"
         zoomable=true %}
     </div>
 </div>
@@ -68,11 +68,11 @@ toc:
 3. Separate the cells that are touching each other.
 4. Give some statistics about the globules (number, average size).
 
-> Hint: step 3 is tricky. It needs the notion of a [**distance map**](#distance-map) of a binary object.
+> **Hint**: step 3 is tricky. It needs the notion of a [**distance map**](#distance-map) of a binary object.
 
-## How to
+## How to Watershed with PINK
 
-### Watershed with PINK
+### Key instructions
 
 ```shell
 # To transform an image into a weighted edge graph:
@@ -84,9 +84,9 @@ pgm2GA im.pgm 0 relief.ga
 > The second argument (here 0) indicates how we proceed to **weight**
 > the edges (maximum / minimum or intensity difference between pixels at the ends of each edge).
 >
-> Is the choice of one weighting function more relevant than another?
+> *Is the choice of one weighting function more relevant than another?
 > In which cases?
-> What difference could it make to the output?
+> What difference could it make to the output?*
 {: .block-tip }
 
 ```shell
@@ -97,13 +97,13 @@ GAwatershed relief.ga watershed.ga
 GA2khalimsky watershed.ga 0 watershed.pgm
 ```
 
-> ##### WARNING
+> ##### TIP
 >
 > To superimpose a segmentation (in the form of a binary image) on a grayscale image,
-> we can use surimp **be careful the two images must be the same size**.
-{: .block-warning }
+> we can use [`surimp`](https://perso.esiee.fr/~coupriem/Pink/doc/html/surimp_8c.html) **be careful the two images must be the same size**.
+{: .block-tip }
 
-To resize an image to the desired size we can use zoom or make the image `img.pgm`` undergo a transition to a weighted graph and then to the Khalimsky grid.
+To resize an image to the desired size we can use zoom or make the image `img.pgm` undergo a transition to a weighted graph and then to the Khalimsky grid.
 
 ```shell
 pgm2GA img.pgm 0 img.ga
@@ -115,37 +115,42 @@ GA2khalimsky img.ga 0  imgRightSize.pgm
 Basically, the distance map to a subset $$X$$ of the space $$E$$ is the image $$D_X$$ on $$E$$ defined, for every pixel $$x$$ in $$E$$ by
 $$ D_X(x) = \min \{ \, d(x,y) \, | \, y \in X \, \} $$ where $$d(x,y)$$ denotes the (Euclidean) distance between $$x$$ and $$y$$.
 
-The the distance map to X is an image where the value of each pixel x is the distance from this point to the closest point which belongs to the set X.
+The the distance map to $$X$$ is an image where the value of each pixel $$x$$ is the distance from this point to the closest point which belongs to the set $$X$$.
 
-To obtain the distance map of an object in Pink you can use the command `dist` for example with the command:
+To obtain the distance map of an object in Pink you can use the command [`dist`](https://perso.esiee.fr/~coupriem/Pink/doc/html/dist_8c.html) for example with the command:
 
 ```shell
 dist X.pgm 1 distMapToX.pgm
 ```
 
-If needed you can convert the resulting image to a byte image (ie, an image with values between 0 and 255) with the command :
+If needed you can convert the resulting image to a byte image (i.e., an image with values between 0 and 255) with the command:
 
 ```shell
 long2byte distMapToX.pgm  1 distMapToX_Byte.pgm
 ```
 
-> ##### DANGER
+> ##### WARNING
 >
 > If you calculate the map distance on an image that is too large,
 > then the byte conversion will not work. The distances will be too large,
 > resulting in an [integer overflow](https://www.wikiwand.com/en/Integer_overflow).
-{: .block-danger }
+{: .block-warning }
 
 ### Threshold an image, interactively
 
-Remind of the fantastic interactive `seuil.tcl`.
+Remind of the fantastic interactive [`seuil.tcl`](https://perso.esiee.fr/~coupriem/Pink/doc/html/seuil_8tcl.html).
 
-### Filter an image
+### Filter an image...
 
-* with an area closing: `areaclosing`
-* with a dynamic closing (depth): `heightminima`
-* with a volume closing: `volmaxima` and `inverse`
+* with an area closing: [`areaclosing`](https://perso.esiee.fr/~coupriem/Pink/doc/html/areaclosing_8c.html)
+* with a dynamic closing (depth): [`heightminima`](https://perso.esiee.fr/~coupriem/Pink/doc/html/heightminima_8c.html)
+* with a volume closing: [`volmaxima`](https://perso.esiee.fr/~coupriem/Pink/doc/html/volmaxima_8c.html) and [`inverse`](https://perso.esiee.fr/~coupriem/Pink/doc/html/inverse_8c.html)
 
-### Count the number of white pixels in a binary image
+### Compute statistics 
 
-Try `area`.
+* To count the number of white pixels in a binary image: [`area`](https://perso.esiee.fr/~coupriem/Pink/doc/html/area_8c.html)
+* To count the number of connected components in a binary image: [`nbcomp`](https://perso.esiee.fr/~coupriem/Pink/doc/html/nbcomp_8c.html)
+
+### To obtain a black image with a white border
+
+Try [`frame`](https://perso.esiee.fr/~coupriem/Pink/doc/html/frame_8c.html).

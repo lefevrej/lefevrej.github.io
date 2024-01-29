@@ -36,6 +36,9 @@ d-article {
   }
   blockquote {
     border-left: 2px solid var(--global-theme-color) !important;
+    p {
+      margin-bottom: 0 !important;
+    }
   }
 
   // Style taken from code blocks

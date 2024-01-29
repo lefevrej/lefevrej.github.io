@@ -21,8 +21,8 @@ The installation involves downloading the PINK library, performing the compilati
 In situations where the compilation of PINK might be time-consuming due to communication delays, it's beneficial to perform the compilation in the local `/tmp` directory and then move the compiled files to the user's working space.
 Navigate to the `/tmp` directory, where you will perform the compilation:
 
-- Visit the PINK library download page: [https://perso.esiee.fr/~coupriem/pink.tgz](https://perso.esiee.fr/~coupriem/pink.tgz)
-- Download the `pink.tgz` file to your preferred directory. It can be easily performed with the `wget` command.
+- Enter into the `/tmp` directory.
+- Download PINK library at the following address: [https://perso.esiee.fr/~coupriem/pink.tgz](https://perso.esiee.fr/~coupriem/pink.tgz). It can be easily performed with the `wget` command.
 
 ```bash
 cd /tmp
