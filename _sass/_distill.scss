@@ -133,6 +133,12 @@ d-article blockquote {
   font-style: normal !important;
 }
 
+.block-tip blockquote, .block-tip p, .block-tip h5, .block-tip em, .block-tip strong,
+.block-warning blockquote, .block-warning p, .block-warning h5, .block-warning em, .block-warning strong,
+.block-danger blockquote, .block-danger p, .block-danger h5, .block-danger em, .block-danger strong {
+  color: black !important;
+}
+
 d-appendix {
   border-top-color: var(--global-divider-color) !important;
   color: var(--global-distill-app-color) !important;
