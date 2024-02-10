@@ -1061,3 +1061,9 @@ nav[data-toggle="toc"] {
     padding-top: 0.5rem;
   }
 }
+
+swiper-container {
+  --swiper-navigation-color: var(--global-theme-color);
+  --swiper-pagination-color: var(--global-theme-color);
+  --swiper-pagination-bullet-inactive-color: var(--global-text-color);
+}

@@ -22,6 +22,10 @@ toc:
     - name: Problem 1 Uranium oxide
     - name: Problem 2 Segmentation of red blood cells
     - name: How To Watershed with PINK
+
+images:
+    compare: true
+    slider: true
 ---
 
 ## Problem 1 Uranium oxide
@@ -52,15 +56,26 @@ toc:
 
 ## Problem 2 Segmentation of red blood cells
 
-<div class="row">
-    <div class="col-sm mt-md-0">
-        {% include figure.liquid path="assets/img/bloodcells.png" class="img-fluid rounded z-depth-1"
-        zoomable=true %}
-    </div>
-    <div class="col-sm mt-md-0">
-        {% include figure.liquid path="assets/img/bloodcells_ws.png" class="img-fluid rounded z-depth-1"
-        zoomable=true %}
-    </div>
+<style>
+  .slider-example-focus {
+    width: 50% !important;
+  }
+
+  .slider-example-focus:focus {
+    outline: none;
+  }
+
+  .center-content {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<div class="center-content">
+    <img-comparison-slider class="slider-example-focus">
+    {% include figure.liquid path="assets/img/bloodcells.png" class="img-fluid rounded z-depth-1 custom-image-size" slot="first" %}
+    {% include figure.liquid path="assets/img/bloodcells_ws.png" class="img-fluid rounded z-depth-1 custom-image-size" slot="second" %}
+    </img-comparison-slider>
 </div>
 
 1. Segment all the red blood cells in the attached bloodCells image.
