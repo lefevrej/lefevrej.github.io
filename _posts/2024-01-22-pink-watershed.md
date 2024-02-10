@@ -58,7 +58,13 @@ images:
 
 <style>
   .slider-example-focus {
-    width: 50% !important;
+    width: 60% !important;
+  }
+
+  @media (max-width: 576px) {
+    .slider-example-focus {
+      width: 100% !important;
+    }
   }
 
   .slider-example-focus:focus {
@@ -68,11 +74,16 @@ images:
   .center-content {
     display: flex;
     justify-content: center;
+    margin-bottom: 1em;
   }
+
+  .no-margin, .no-margin * {
+      margin: 0 !important;
+   }
 </style>
 
 <div class="center-content">
-    <img-comparison-slider class="slider-example-focus">
+    <img-comparison-slider class="slider-example-focus no-margin">
     {% include figure.liquid path="assets/img/bloodcells.png" class="img-fluid rounded z-depth-1 custom-image-size" slot="first" %}
     {% include figure.liquid path="assets/img/bloodcells_ws.png" class="img-fluid rounded z-depth-1 custom-image-size" slot="second" %}
     </img-comparison-slider>
