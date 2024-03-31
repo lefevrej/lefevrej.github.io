@@ -1,16 +1,29 @@
 ---
 ---
 
+@inproceedings{lebon2024prl,
+  author      = {Lebon, Quentin
+                 and Lef{\`e}vre, Josselin
+                 and Cousty, Jean
+                 and Perret, Benjamin},
+  title           = {Incremental Watershed Cuts: Interactive Segmentation Algorithm with Parallel Strategy},
+  year            = {2024},
+  abbr            = {Preprint},
+  selected        = {true},
+}
+
 @inproceedings{lefevre2024dgmm,
   author          = {Josselin Lefèvre and Jean Cousty and Benjamin Perret and Harold Phelippeau},
   title           = {Out-of-core Attribute Algorithms for Binary Partition Hierarchies},
+  booktitle       = {Discrete Geometry and Mathematical Morphology},
+  publisher       = {Springer},
   year            = {2024},
   abstract        = {Binary Partition Hierarchies (BPHs) and Minimum Spanning Trees are key structures in hierarchical image analysis. However, the explosion in the size of image data poses a new challenge, as the memory available in conventional workstations becomes insufficient to execute classical algorithms. To address this problem, specific algorithms have been proposed for out-of-core computation of BPHs, where a BPH is actually represented by a collection of smaller trees, called a distribution, thus reducing the memory footprint of the algorithms. In this article, we address the problem of designing efficient out-of-core algorithms for computing classical attributes in distributions of BPHs, which is a necessary step towards a complete out-of-core hierarchical analysis workflow that includes tasks such as connected filtering and the generation of other representations such as hierarchical watersheds. The proposed algorithms are based on generic operations designed to propagate information through the distribution of trees, enabling the computation of attributes such as area, volume, height, minima and number of minima.},
-  abbr            = {Preprint},
+  abbr            = {DGMM},
   selected        = {true},
   preview         = {attributes.jpg},
   html            = {https://laas.hal.science/hal-04364371},
-  pdf             = {https://laas.hal.science/hal-04364371/file/DGMM_2024.pdf},
+  pdf             = {DGMM24_ATTR.pdf},
 }
 
 @inproceedings{lefevre2022dgmm,
@@ -27,8 +40,9 @@
   isbn         = {978-3-031-19897-7},
   abstract     = {Binary Partition Hierarchies (BPH) and minimum spanning trees are fundamental data structures involved in hierarchical analysis such as quasi-flat zones or watershed. However, classical BPH construction algorithms require to have the whole data in memory, which prevent the processing of large images that cannot fit entirely in the main memory of the computer. To cope with this problem, an algebraic framework leading to a high level calculus was introduced allowing an out-of-core computation of BPHs. This calculus relies on three operations: select, join, and insert. In this article, we introduce three efficient algorithms to perform these operations providing pseudo-code and complexity analysis.},
   abbr         = {DGMM},
+  preview      = {causal.jpg},
   html         = {https://doi.org/10.1007/978-3-031-19897-7_22},
-  pdf          = {https://hal.science/hal-03794772/file/DGMM22_OOC_BPT.pdf},
+  pdf          = {DGMM22_OOC_BPT.pdf},
   code         = {https://github.com/PerretB/Higra-distributed},
   bibtex_show  = {true},
   selected     = {true},

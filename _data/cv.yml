@@ -44,6 +44,13 @@
 - title: Awards
   type: time_table
   contents:
+
+    - title: Best Student Award
+      institution: Iberoamerican Congress on Pattern Recognition, Coimbra, Portugal
+      year: 2023
+      description: 
+       - "Awarded for: Interactive Segmentation with Incremental Watershed Cuts"
+
     - title: Best Student Award
       institution: Discrete Geometry and Mathematical Morphology 2021, Strasbourg, France
       year: 2022
