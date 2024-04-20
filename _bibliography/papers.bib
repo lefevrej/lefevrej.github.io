@@ -7,6 +7,10 @@
                  and Cousty, Jean
                  and Perret, Benjamin},
   title           = {Incremental Watershed Cuts: Interactive Segmentation Algorithm with Parallel Strategy},
+  abstract        = { In this article, we design an incremental method for computing seeded watershed cuts for interactive image segmentation.
+    We propose an algorithm based on the hierarchical image representation called the binary partition tree to compute a seeded watershed cut.
+    Additionally, we leverage properties of minimum spanning forests to introduce a parallel method for labeling connected component.
+    We show that those algorithms fits perfectly in an interactive segmentation process by handling user interactions, seed addition or removal, in linear time with respect to the number of affected pixels.  Run time comparisons with several state-of-the-art interactive and non-interactive watershed methods show that the proposed method can handle user interactions much faster than previous methods with a significant speedup ranging from 15 to 90 on both 2D and 3D images, thus improving the user experience on large images.},
   year            = {2024},
   abbr            = {Preprint},
   selected        = {true},
@@ -16,14 +20,18 @@
   author          = {Josselin Lefèvre and Jean Cousty and Benjamin Perret and Harold Phelippeau},
   title           = {Out-of-core Attribute Algorithms for Binary Partition Hierarchies},
   booktitle       = {Discrete Geometry and Mathematical Morphology},
-  publisher       = {Springer},
+  editor          = {Brunetti, Sara and Frosini, Andrea and Rinaldi, Simone},
+  publisher       = {Springer Nature Switzerland},
   year            = {2024},
   abstract        = {Binary Partition Hierarchies (BPHs) and Minimum Spanning Trees are key structures in hierarchical image analysis. However, the explosion in the size of image data poses a new challenge, as the memory available in conventional workstations becomes insufficient to execute classical algorithms. To address this problem, specific algorithms have been proposed for out-of-core computation of BPHs, where a BPH is actually represented by a collection of smaller trees, called a distribution, thus reducing the memory footprint of the algorithms. In this article, we address the problem of designing efficient out-of-core algorithms for computing classical attributes in distributions of BPHs, which is a necessary step towards a complete out-of-core hierarchical analysis workflow that includes tasks such as connected filtering and the generation of other representations such as hierarchical watersheds. The proposed algorithms are based on generic operations designed to propagate information through the distribution of trees, enabling the computation of attributes such as area, volume, height, minima and number of minima.},
+  pages           = {298--311},
   abbr            = {DGMM},
   selected        = {true},
+  bibtex_show     = {true},
   preview         = {attributes.jpg},
-  html            = {https://laas.hal.science/hal-04364371},
+  html            = {https://doi.org/10.1007/978-3-031-57793-2_23},
   pdf             = {DGMM24_ATTR.pdf},
+  slides          = {slides_DGMM24.pdf},
 }
 
 @inproceedings{lefevre2022dgmm,
