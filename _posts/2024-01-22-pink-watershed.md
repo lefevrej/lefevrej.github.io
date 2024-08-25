@@ -36,7 +36,7 @@ images:
         zoomable=true %}
     </div>
     <div class="col-sm mt-md-0">
-        {% include figure.liquid path="assets/img/uo.png" class="img-fluid rounded z-depth-1"
+        {% include figure.liquid path="assets/img/uo_surimp.png" class="img-fluid rounded z-depth-1"
         zoomable=true %}
     </div>
 </div>
