@@ -1,6 +1,6 @@
-- year: 2023
+- year: 2024
   classes:
-    - name: Introduction to Image Analysis - 19h
+    - name: Introduction to Image Analysis
       institution: 
         name: ESIEE Paris
         site: https://www.esiee.fr/
@@ -14,8 +14,12 @@
         - item:  Application of morphological connected operators to binary and grayscale images
           site: http://www.esiee.fr/~coustyj/EnglishMorphoGraph/PS5.html
         - item:  Watershed segmentation
+      hours: 18
+      lecturer:
+        - name: "Jean Cousty"
+          url: https://perso.esiee.fr/~coustyj/
 
-    - name: Algorithm Design - 20h
+    - name: Algorithm Design
       institution: 
         name: ESIEE Paris
         site: https://www.esiee.fr/    
@@ -27,8 +31,12 @@
         - item:  Divide and conquer
         - item:  Greedy algorithms
         - item:  Dynamic programming
+      hours: 16
+      lecturer:
+        - name: "Benjamin Perret"
+          url: https://perso.esiee.fr/~perretb/
 
-    - name: Introduction to Algorithms - 18h 
+    - name: Introduction to Algorithms
       institution: 
         name: ESIEE Paris
         site: https://www.esiee.fr/
@@ -38,10 +46,67 @@
         - item:  Complexity analysis  
         - item:  Sorting algorithms
         - item:  Linked lists
+      hours: 16
+      lecturer:
+        - name: "Daniel Ramos Vaz"
+          url: https://www.dvaz.net/
+
+- year: 2023
+  classes:
+    - name: Introduction to Image Analysis
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/
+      role: Teaching Assistant
+      level: master 1
+      description:
+        - item: "Mathematical morphology: basic operators"
+          site: http://www.esiee.fr/~coustyj/EnglishMorphoGraph/TP1.html
+        - item:  Application of morphological operators by structuring elements to binary and grayscale image processing
+          site: http://www.esiee.fr/~coustyj/EnglishMorphoGraph/PS4.html
+        - item:  Application of morphological connected operators to binary and grayscale images
+          site: http://www.esiee.fr/~coustyj/EnglishMorphoGraph/PS5.html
+        - item:  Watershed segmentation
+      hours: 19
+      lecturer:
+        - name: "Jean Cousty"
+          url: https://perso.esiee.fr/~coustyj/
+
+    - name: Algorithm Design
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/    
+      role: Teaching Assistant
+      level: master 1
+      description:
+        - item:  Algorithm complexity
+        - item:  Data structures
+        - item:  Divide and conquer
+        - item:  Greedy algorithms
+        - item:  Dynamic programming
+      hours: 20
+      lecturer:
+        - name: "Benjamin Perret"
+          url: https://perso.esiee.fr/~perretb/
+
+    - name: Introduction to Algorithms
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/
+      role: Teaching Assistant
+      level: license 3
+      description:
+        - item:  Complexity analysis  
+        - item:  Sorting algorithms
+        - item:  Linked lists
+      hours: 18
+      lecturer:
+        - name: "Lara Raad Cisa"
+          url: http://dev.ipol.im/~lraad/
 
 - year: 2022
   classes:
-    - name: Introduction to Algorithms - 14h
+    - name: Introduction to Algorithms
       institution: 
         name: ESIEE Paris
         site: https://www.esiee.fr/
@@ -51,8 +116,12 @@
         - item:  Complexity analysis  
         - item:  Sorting algorithms
         - item:  Linked lists
+      hours: 14
+      lecturer:
+        - name: "Lara Raad Cisa"
+          url: http://dev.ipol.im/~lraad/
 
-    - name: Algorithm Design - 16h
+    - name: Algorithm Design
       institution: 
         name: ESIEE Paris
         site: https://www.esiee.fr/    
@@ -64,3 +133,7 @@
         - item:  Divide and conquer
         - item:  Greedy algorithms
         - item:  Dynamic programming
+      hours: 16
+      lecturer:
+        - name: "Benjamin Perret"
+          url: https://perso.esiee.fr/~perretb/

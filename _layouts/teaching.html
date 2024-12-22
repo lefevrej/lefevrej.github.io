@@ -11,11 +11,17 @@ layout: default
 
 <div class="post">
   <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
+    {% assign totalHours = 0 %}
+    {% for year in site.data.classes %}
+        {% for cls in year.classes %}
+            {% assign totalHours = totalHours | plus: cls.hours %}
+        {% endfor %}
+    {% endfor %}
+    <h1 class="post-title">{{ page.title }} - {{ totalHours }}h</h1>
   </header>
   {% for year in site.data.classes %}
   <div class="publications">
-    <h2 class="bibliography mb-3">{{ year.year }}</h2>
+    <h2 class="bibliography mb-3" style="color: var(--global-text-color);" >{{ year.year }}</h2>
     {% for class in year.classes %}
     <div class="card mt-3 p-3">
       <!-- Badge -->
@@ -25,8 +31,16 @@ layout: default
         </span>
       </div>
       <!-- Name -->
-      <h5 class="font-weight-bold mt-2 mt-md-0">{{ class.name }}</h5>
+      <h5 class="font-weight-bold mt-2 mt-md-0">{{ class.name }} - {{ class.hours }}h</h5>
       <h6 class="font-italic">{{ class.role }}</h6>
+
+      <!-- Lecturer -->
+      <div class="lecturer d-flex align-items-center">
+        {% for lecturer in class.lecturer %}
+          <h6 class="font-italic"> Lecturer: <a href="{{ lecturer.url }}" target="_blank"> {{ lecturer.name }}</a></h6>{% if forloop.last == false %}, {% endif %}
+        {% endfor %}
+      </div>
+
 
       <!-- Institution -->
       <div class="institution d-flex align-items-center">
