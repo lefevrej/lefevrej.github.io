@@ -18,8 +18,8 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-:wave: I'm Josselin Lefèvre, a PhD student at Thermo Fisher Scientific and LIGM.
+:wave: Hi, I'm Josselin Lefèvre, a PhD student collaborating with Thermo Fisher Scientific and LIGM.
 
-In my doctoral research, I'm addressing challenges related to **Hierarchical Segmentation under Memory Constraint**. I am also interested in interactive segmentation. In this way, it will be possible to extend the application of the hierarchical toolbox to the processing of large images.
+My doctoral research focuses on tackling challenges in **Hierarchical Segmentation under Memory Constraints**, with a keen interest in Interactive Segmentation. By enhancing these methods, my goal is to enable the hierarchical toolbox to efficiently process large-scale images, opening doors to broader applications in image analysis.
 
-I obtained an engineering degree in computer science at [ESIEE Paris](https://www.esiee.fr) with honors with a specialization in **Image Processing**.
+I hold an Engineering Degree in Computer Science from [ESIEE Paris](https://www.esiee.fr), where I graduated with honors, specializing in Image Processing.
