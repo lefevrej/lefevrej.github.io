@@ -4,7 +4,7 @@ permalink: /cv/
 title: CV
 nav: true
 nav_order: 2
-cv_pdf: example_pdf.pdf
+cv_pdf: cv_josselin_lefevre_en.pdf
 description:
 toc:
   sidebar: left

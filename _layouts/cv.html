@@ -27,6 +27,8 @@ layout: default
             {% include cv/time_table.html %}
           {% elsif entry.type == "list_groups" %}
             {% include cv/list_groups.html %}
+          {% elsif entry.type == "biblio_time_table" %}
+            {% include cv/biblio_time_table.html %}
           {% else %}
             {{ entry.contents }}
           {% endif %}

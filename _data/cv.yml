@@ -45,13 +45,13 @@
   type: time_table
   contents:
 
-    - title: Best Student Award
+    - title: Best Student Paper Award
       institution: Iberoamerican Congress on Pattern Recognition, Coimbra, Portugal
       year: 2023
       description: 
        - "Awarded for: Interactive Segmentation with Incremental Watershed Cuts"
 
-    - title: Best Student Award
+    - title: Best Student Paper Award
       institution: Discrete Geometry and Mathematical Morphology 2021, Strasbourg, France
       year: 2022
       description: 
@@ -59,19 +59,27 @@
       url: https://dgmm2022.sciencesconf.org/resource/page/id/15
 
 - title: Publications
-  type: time_table
-  contents:
-    - title: Out-of-core Attribute Algorithms for Binary Partition Hierarchies
-      institution: DGMM 2024, Florence, Italy
-      year: 2024
-      url: https://doi.org/10.1007/978-3-031-57793-2_23
+  type: biblio_time_table
+  conferences:
+    contents:
+      - title: Out-of-core Attribute Algorithms for Binary Partition Hierarchies
+        institution: DGMM 2024, Florence, Italy
+        year: 2024
+        url: https://doi.org/10.1007/978-3-031-57793-2_23
 
-    - title: Interactive Segmentation with Incremental Watershed Cuts
-      institution: CIARP 2023, Coimbra, Protugal
-      year: 2023
-      url: https://doi.org/10.1007/978-3-031-49018-7_14
+      - title: Interactive Segmentation with Incremental Watershed Cuts
+        institution: CIARP 2023, Coimbra, Portugal
+        year: 2023
+        url: https://doi.org/10.1007/978-3-031-49018-7_14
+      
+      - title: "Join, Select, and Insert: Efficient Out-of-core Algorithms for Hierarchical Segmentation Trees"
+        institution: DGMM 2022, Strasbourg, France
+        year: 2022
+        url: https://doi.org/10.1007/978-3-031-19897-7_22
 
-    - title: "Join, Select, and Insert: Efficient Out-of-core Algorithms for Hierarchical Segmentation Trees"
-      institution: DGMM 2022, Strasbourg, France
-      year: 2022
-      url: https://doi.org/10.1007/978-3-031-19897-7_22
+  journals:
+    contents:
+      - title: "Incremental Watershed Cuts: Interactive Segmentation Algorithm with Parallel Strategy"
+        institution: Pattern Recognition Letters
+        year: 2024
+        url: https://doi.org/10.1016/j.patrec.2024.12.005
