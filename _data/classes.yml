@@ -51,6 +51,21 @@
         - name: "Daniel Ramos Vaz"
           url: https://www.dvaz.net/
 
+    - name: Introduction to Linux Command Line
+      institution: 
+        name: ESIEE Paris
+        site: https://www.esiee.fr/
+      role: Teaching Assistant
+      level: license 2
+      description:
+        - item: "Basics of the Linux command line: navigation, file manipulation, and permissions"
+        - item: "Using SSH to connect to a distant server"
+        - item: "Compiling programs from source code"
+      hours: 20
+      lecturer:
+        - name: "Thierry Grandpierre"
+          url: https://perso.esiee.fr/~grandpit/
+
 - year: 2023
   classes:
     - name: Introduction to Image Analysis
