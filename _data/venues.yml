@@ -8,3 +8,11 @@
 "CIARP":
   url: https://ciarp2023.isec.pt/
   color: "#6610f2"
+
+"JMIV":
+  url: https://www.springer.com/journal/10851
+  color: "#dc3545"
+
+"PRL":
+  url: https://www.journals.elsevier.com/pattern-recognition-letters
+  color: "#007bff"
