@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <!-- _layouts/distill.html -->
-<html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
   <head>
     {%- include head.html %}
+    {% if page.stylesheet %}<link rel="stylesheet" href="{{ page.stylesheet | relative_url }}">{% endif %}
+    {% if page.translation_url %}
+    <link rel="alternate" hreflang="{{ page.lang }}" href="{{ page.url | absolute_url }}">
+    <link rel="alternate" hreflang="{{ page.translation_lang }}" href="{{ page.translation_url | absolute_url }}">
+    {% endif %}
 
     {%- if site.enable_medium_zoom %}
       <!-- Medium Zoom JS -->
@@ -80,9 +85,9 @@
         {% if page.toc -%}
         <d-contents>
           <nav class="l-text figcaption">
-          <h3>Contents</h3>
+          <h3>{% if page.lang == "fr" %}Sommaire{% else %}Contents{% endif %}</h3>
             {% for section in page.toc -%}
-            <div><a href="#{{ section.name | slugify }}">{{ section.name }}</a></div>
+            <div><a href="#{{ section.id | default: section.name | slugify }}">{{ section.name }}</a></div>
             {% if section.subsections -%}
             <ul>
               {% for subsection in section.subsections -%}
