@@ -22,6 +22,7 @@
     - title: Engineering degree
       institution: ESIEE Paris, France
       year: 2016 - 2021
+      maindescription: Graduated with honors and ranked first.
       description:
         - Mathematical Morphology
         - Image Processing
@@ -79,6 +80,10 @@
 
   journals:
     contents:
+      - title: "Out-of-core Algorithms for Binary Partition Hierarchies"
+        institution: Journal of Mathematical Imaging and Vision
+        year: 2025
+        url: https://doi.org/10.1007/s10851-025-01234-0
       - title: "Incremental Watershed Cuts: Interactive Segmentation Algorithm with Parallel Strategy"
         institution: Pattern Recognition Letters
         year: 2024

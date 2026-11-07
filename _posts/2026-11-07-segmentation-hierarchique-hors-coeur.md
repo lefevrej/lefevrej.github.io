@@ -24,7 +24,7 @@ toc:
     id: station-de-travail
   - name: "Des représentations plus compactes"
     id: representations-compactes
-  - name: "Deuxième volet : accélérer les interactions"
+  - name: "Deuxième volet : segmentation interactive incrémentale par lignes de partage des eaux"
     id: segmentation-interactive
   - name: "Un partenariat industriel et scientifique"
     id: partenariat
@@ -38,7 +38,7 @@ images:
 
 Les progrès de la microscopie électronique produisent des images 3D de plusieurs milliards de voxels. Pour les analyser, il faut **délimiter les régions d’intérêt** : c’est la segmentation. Deux obstacles apparaissent alors : les besoins en mémoire vive et les temps de calcul qui dégradent l’expérience utilisateur.
 
-Ma thèse CIFRE, *Algorithmes scalables pour la segmentation hiérarchique d’images et de données*, menée à **ESIEE Paris, entre le LIGM et Thermo Fisher Scientific**, explore **deux sujets distincts** : le **calcul exact hors-cœur**, pour maîtriser les besoins en mémoire, et la **segmentation interactive incrémentale**, pour accélérer les corrections de l’utilisateur. Un démonstrateur dans Amira<sup>™</sup> prépare leur valorisation industrielle.<d-cite key="lefevre2026thesis"></d-cite>
+Ma thèse CIFRE, *Algorithmes scalables pour la segmentation hiérarchique d’images et de données*, menée à **ESIEE Paris, entre le LIGM et Thermo Fisher Scientific**, explore **deux sujets distincts** : le **calcul exact hors-cœur**, pour maîtriser les besoins en mémoire, et la **segmentation interactive incrémentale par lignes de partage des eaux**, pour accélérer les corrections de l’utilisateur. Un démonstrateur dans Amira<sup>™</sup> prépare leur valorisation industrielle.
 
 ## Premier volet : le calcul exact hors-cœur
 {: #calcul-hors-coeur }
@@ -53,7 +53,7 @@ Le principe de l'algoritmique **hors-cœur** est de conserver les données sur d
   <figcaption>Le principe du hors-cœur : seuls les blocs utiles sont présents en mémoire vive. Schéma adapté des slides de soutenance.</figcaption>
 </figure>
 
-Le défi scientifique est de préserver les **relations d’inclusion entre les régions**, même lorsqu’une région couvre plusieurs blocs. Traiter chaque bloc indépendamment peut créer des frontières artificielles :
+Le défi scientifique est de préserver les **relations d’inclusion entre les régions**, même lorsqu’une région couvre plusieurs blocs. Traiter chaque bloc indépendamment de manière naïve peut créer des frontières artificielles :
 
 <div class="l-body thesis-figure thesis-pair">
   <figure>
@@ -68,7 +68,7 @@ Le défi scientifique est de préserver les **relations d’inclusion entre les 
 
 Notre **cadre algébrique** construit une distribution de la hiérarchie binaire de partitions : chaque bloc dispose d’un arbre local, cohérent avec la représentation globale. Trois opérations organisent le calcul : **select** extrait l’information utile, **join** combine les informations de blocs voisins et **insert** corrige et complète les hiérarchies locales.<d-cite key="lefevre2022,lefevre2025"></d-cite>
 
-**La validité est établie mathématiquement : le calcul par blocs retrouve exactement la hiérarchie du calcul global, selon les mêmes conventions de construction.** Le schéma causal borne aussi la taille des structures intermédiaires par rapport aux éléments voisins de la distribution.
+**La validité est établie mathématiquement : le calcul par blocs retrouve exactement la hiérarchie du calcul global.** Nous proposons un schéma de calcul qui borne la taille des structures intermédiaires par rapport aux éléments voisins de la distribution.
 
 {% details Les fondements mathématiques %}
 Le chapitre 4 et ses preuves en annexe comprennent **5 définitions et 9 résultats mathématiques** : 3 propriétés, 5 lemmes et 1 corollaire. Ils formalisent les opérations, les relations entre représentations et les bornes sur les structures intermédiaires.
@@ -95,7 +95,7 @@ Ce cadre s’étend au calcul de caractéristiques régionales comme l'aire, le 
 
 Pour le volet mémoire, considérons une station de **32 Go**, dont **16 Go réservés au système et aux autres applications** : il reste **16 Go pour le calcul**. Les modèles issus des expériences donnent un ordre de grandeur d’environ **98 millions de voxels en cœur**, contre **5,3 milliards avec une représentation hors-cœur compacte**. La construction de cette représentation compacte est détaillée dans la [section suivante](#representations-compactes).
 
-Ces capacités sont **estimées** pour des images 8 bits non compressées. Elles supposent que les coefficients observés restent comparables : le facteur d’environ **55** n’est pas une capacité mesurée sur cette station.
+Ces capacités sont estimées pour des images 8 bits. Elles supposent que les coefficients observés restent comparables : le facteur d’environ **55** n’est pas une capacité mesurée sur cette station.
 
 <figure class="l-page thesis-figure">
   <img src="{{ '/assets/img/posts/scalable-segmentation/incore-memory.svg' | relative_url }}" loading="lazy" alt="Pic mémoire en cœur et hors-cœur causal selon la taille de l’image. Le calcul en cœur atteint environ 239 Go pour une image de 1,47 Go." data-zoomable>
@@ -183,7 +183,7 @@ Les expériences de construction de la distribution, menées avec l’implément
 
 Les deux configurations sont hors-cœur : la comparaison porte sur le niveau pixel et le niveau superpixel, avec des stratégies de partitionnement différentes. Les 84 % comparent les minima obtenus en faisant varier le nombre de blocs ; le stockage et le temps sont comparés à 80 blocs.
 
-## Deuxième volet : accélérer les interactions
+## Deuxième volet : segmentation interactive incrémentale par lignes de partage des eaux
 {: #segmentation-interactive }
 
 Ce second volet porte sur la **réactivité**, lorsque l’image et les structures de calcul tiennent en mémoire. En segmentation interactive, l’utilisateur désigne les objets d’intérêt et le fond à l’aide de **marqueurs**, observe le résultat, puis ajoute ou efface des marqueurs pour afininer les contours.
