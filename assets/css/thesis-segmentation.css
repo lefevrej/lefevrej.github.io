@@ -8,6 +8,7 @@
 .thesis-stack figure { margin: 0; }
 .thesis-stack svg { display: block; width: 100%; height: auto; }
 .thesis-stack figcaption { text-align: center; }
+.thesis-video { display: block; width: 100%; height: auto; background: #000; }
 .thesis-diagram img { background: transparent; }
 .thesis-diagram .diagram-dark { display: none; }
 html[data-theme="dark"] .thesis-diagram .diagram-light { display: none; }
@@ -20,6 +21,7 @@ html[data-theme="dark"] .thesis-diagram .diagram-dark { display: block; }
 .thesis-table th { border-bottom: 2px solid var(--global-divider-color); }
 .thesis-table td { border-bottom: 1px solid var(--global-divider-color); }
 .thesis-memory { margin: 1.5rem 0; }
+.thesis-capacity-takeaway { margin: 1.5rem 0; padding: .9rem 1.1rem; border-left: 4px solid var(--global-theme-color); }
 .thesis-memory label { display: block; font-size: .95em; }
 .thesis-memory input[type="range"] { display: block; box-sizing: border-box; width: 100%; margin: .8rem 0 .4rem; padding: 0; accent-color: var(--global-theme-color); cursor: pointer; }
 .thesis-memory input[type="range"]:focus-visible { outline: 2px solid var(--global-theme-color); outline-offset: 4px; }
@@ -32,3 +34,6 @@ d-article h2, d-article h3 { scroll-margin-top: 6rem; }
   .thesis-table th, .thesis-table td { padding: .5rem .35rem; font-size: .88em; }
 }
 .thesis-languages { font-size: .9em; margin-bottom: 1.8rem; }
+d-citation-list.thesis-reference-groups .thesis-reference-heading { list-style: none; margin: 1.8rem 0 .85rem; padding: 0; }
+d-citation-list.thesis-reference-groups .thesis-reference-heading h4 { margin: 0; color: var(--global-text-color); font-size: 1.1rem; font-weight: 700; line-height: 1.25; }
+d-citation-list.thesis-reference-groups .thesis-reference-heading h4::after { content: ""; display: block; width: 10rem; height: 2px; margin-top: .45rem; background: var(--global-theme-color); }

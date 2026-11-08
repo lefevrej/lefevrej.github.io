@@ -12,6 +12,15 @@ categories: research
 thumbnail: assets/img/posts/scalable-segmentation/superpixels-original.jpg
 related_posts: false
 bibliography: scalable-hierarchical-segmentation.bib
+thesis_reference_keys:
+  - lefevre2026thesis
+  - lefevre2022
+  - lefevre2025
+  - lefevre2024
+  - lebon2023
+  - lebon2025
+thesis_works_heading: "Travaux directement issus de la thèse"
+external_references_heading: "Références externes"
 authors:
   - name: Josselin Lefèvre
     url: "https://lefevrej.github.io/"
@@ -108,7 +117,9 @@ Ce cadre s’étend au calcul de caractéristiques régionales comme l'aire, le 
 
 La taille du fichier ne suffit pas à savoir si une image peut être traitée : il faut aussi tenir compte de la mémoire nécessaire à la hiérarchie et au calcul. En inversant les modèles issus des expériences, on obtient une **taille maximale d’image estimée pour un budget mémoire donné**.
 
-Avec **32 Go pour le calcul**, ces modèles donnent environ **196 Mo d’image en cœur**, contre **10,7 Go avec une représentation hors-cœur optimisée**, pour des images 8 bits non compressées. Le principe de cette représentation compacte est détaillé dans la [section suivante](#representations-compactes).
+<p class="thesis-capacity-takeaway"><strong>Avec 32 Go de mémoire vive pour le calcul, une méthode en cœur ne peut traiter qu’une image d’environ 196 Mo au maximum.</strong> Avec la méthode hors-cœur optimisée, ce même budget permet de traiter des images allant jusqu’à <strong>10,7 Go</strong>, soit environ <strong>55 fois plus grandes</strong> (pour des images 8 bits non compressées).</p>
+
+Autrement dit, la méthode hors-cœur fait passer une image de l’ordre de quelques centaines de mégaoctets à une image de plus de dix gigaoctets sur la même station de travail. Le principe de cette représentation compacte est détaillé dans la [section suivante](#representations-compactes).
 
 <figure class="l-page thesis-figure">
   <img src="{{ '/assets/img/posts/scalable-segmentation/incore-memory.svg' | relative_url }}" loading="lazy" alt="Pic mémoire en cœur et hors-cœur causal selon la taille de l’image. Le calcul en cœur atteint environ 239 Go pour une image de 1,47 Go." data-zoomable>
@@ -127,8 +138,8 @@ Avec **32 Go pour le calcul**, ces modèles donnent environ **196 Mo d’image e
     <table>
       <thead><tr><th scope="col">Méthode</th><th scope="col">Taille maximale estimée de l’image</th><th scope="col">Nombre de voxels en 8 bits</th></tr></thead>
       <tbody>
-        <tr><th scope="row">En cœur</th><td><output data-memory-incore>196 Mo</output></td><td><output data-memory-incore-voxels>196 millions</output></td></tr>
-        <tr><th scope="row">Hors-cœur optimisé</th><td><output data-memory-qfz>10,7 Go</output></td><td><output data-memory-qfz-voxels>10,7 milliards</output></td></tr>
+        <tr><th scope="row">En cœur — au plus</th><td><output data-memory-incore>196 Mo</output></td><td><output data-memory-incore-voxels>196 millions</output></td></tr>
+        <tr><th scope="row">Hors-cœur optimisé — jusqu’à</th><td><output data-memory-qfz>10,7 Go</output></td><td><output data-memory-qfz-voxels>10,7 milliards</output></td></tr>
       </tbody>
     </table>
   </div>
@@ -218,6 +229,8 @@ Notre méthode **incrémentale** conserve l’état du calcul entre deux interac
     <figcaption>Segmentation affinée</figcaption>
   </figure>
 </div>
+
+{% include video.html path="/assets/video/incremental_watershed.mp4" class="thesis-video" controls=true width="1024" title="Démonstration de la ligne de partage des eaux incrémentale" caption="Démonstration de la segmentation interactive incrémentale : le résultat est mis à jour au fil de l’ajout et du retrait des marqueurs." %}
 
 Une stratégie parallèle accélère les mises à jour importantes. Sur les cinq volumes 3D du benchmark, le temps moyen atteint **0,34 seconde par interaction**, contre **9,26 secondes pour ITK**, soit une accélération d’environ **27 fois**, hors initialisation.<d-cite key="lebon2025"></d-cite>
 

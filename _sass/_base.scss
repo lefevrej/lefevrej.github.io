@@ -425,6 +425,18 @@ footer.fixed-bottom {
   }
 }
 
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 0;
+  }
+
+  footer.fixed-bottom {
+    position: static;
+    margin-top: 2.5rem;
+    font-size: 0.7rem;
+  }
+}
+
 footer.sticky-bottom {
   border-top: 1px solid var(--global-divider-color);
   padding-top: 40px;

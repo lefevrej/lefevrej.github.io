@@ -12,6 +12,15 @@ categories: research
 thumbnail: assets/img/posts/scalable-segmentation/superpixels-original.jpg
 related_posts: false
 bibliography: scalable-hierarchical-segmentation.bib
+thesis_reference_keys:
+  - lefevre2026thesis
+  - lefevre2022
+  - lefevre2025
+  - lefevre2024
+  - lebon2023
+  - lebon2025
+thesis_works_heading: "Work directly resulting from the thesis"
+external_references_heading: "External references"
 authors:
   - name: Josselin Lefèvre
     url: "https://lefevrej.github.io/"
