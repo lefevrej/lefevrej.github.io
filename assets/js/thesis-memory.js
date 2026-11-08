@@ -7,11 +7,9 @@
   var locale = root.getAttribute("data-locale") === "fr" ? "fr" : "en";
   var french = locale === "fr";
   var strings = french ? {
-    gb: "Go", mb: "Mo", million: "millions", billion: "milliards",
-    invalid: "Indiquez une mémoire installée positive (jusqu’à 4096 Go) et une réserve inférieure à cette capacité."
+    gb: "Go", mb: "Mo", million: "millions", billion: "milliards"
   } : {
-    gb: "GB", mb: "MB", million: "million", billion: "billion",
-    invalid: "Enter positive installed RAM (up to 4096 GB) and a reserved amount smaller than the installed RAM."
+    gb: "GB", mb: "MB", million: "million", billion: "billion"
   };
 
   if (french) {
@@ -48,8 +46,6 @@
   }
 
   var total = root.querySelector("#memory-total");
-  var reserved = root.querySelector("#memory-reserved");
-  var error = root.querySelector("[data-memory-error]");
   var outputs = {
     budget: root.querySelector("[data-memory-budget]"),
     incore: root.querySelector("[data-memory-incore]"),
@@ -71,22 +67,11 @@
   }
 
   function update() {
-    var installed = total.valueAsNumber;
-    var occupied = reserved.valueAsNumber;
-    var valid = Number.isFinite(installed) && Number.isFinite(occupied) &&
-      installed > 0 && installed <= 4096 && occupied >= 0 && occupied < installed;
-    error.hidden = valid;
-    reserved.setAttribute("aria-invalid", valid ? "false" : "true");
-    total.setAttribute("aria-invalid", valid ? "false" : "true");
-    if (!valid) {
-      error.textContent = strings.invalid;
-      Object.keys(outputs).forEach(function (key) { outputs[key].textContent = "—"; });
-      return;
-    }
-    var budget = installed - occupied;
+    var budget = total.valueAsNumber;
     var inCore = Math.max(0, (budget - 0.062) / 162.94);
     var qfz = budget / 3;
-    outputs.budget.textContent = format(budget, 2) + " " + strings.gb;
+    outputs.budget.textContent = format(budget, 0) + " " + strings.gb;
+    total.setAttribute("aria-valuetext", outputs.budget.textContent);
     outputs.incore.textContent = size(inCore);
     outputs.incoreVoxels.textContent = voxels(inCore);
     outputs.qfz.textContent = size(qfz);
@@ -94,6 +79,5 @@
   }
 
   total.addEventListener("input", update);
-  reserved.addEventListener("input", update);
   update();
 }());

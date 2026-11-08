@@ -20,16 +20,15 @@ html[data-theme="dark"] .thesis-diagram .diagram-dark { display: block; }
 .thesis-table th { border-bottom: 2px solid var(--global-divider-color); }
 .thesis-table td { border-bottom: 1px solid var(--global-divider-color); }
 .thesis-memory { margin: 1.5rem 0; }
-.thesis-memory .memory-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.thesis-memory label { display: flex; flex-direction: column; justify-content: space-between; gap: .4rem; font-size: .9em; }
-.thesis-memory input { display: block; box-sizing: border-box; width: 100%; padding: .55rem; font: inherit; color: var(--global-text-color); background: var(--global-bg-color); border: 1px solid var(--global-text-color-light); border-radius: 3px; }
+.thesis-memory label { display: block; font-size: .95em; }
+.thesis-memory input[type="range"] { display: block; box-sizing: border-box; width: 100%; margin: .8rem 0 .4rem; padding: 0; accent-color: var(--global-theme-color); cursor: pointer; }
+.thesis-memory input[type="range"]:focus-visible { outline: 2px solid var(--global-theme-color); outline-offset: 4px; }
+.thesis-memory .memory-range-ends { display: flex; justify-content: space-between; font-size: .85em; }
 .thesis-memory output { font-variant-numeric: tabular-nums; }
-.thesis-memory .memory-error { color: var(--global-theme-color); }
 d-article details { margin-top: 1.5rem; margin-bottom: 1.5rem; }
 d-article summary { cursor: pointer; font-weight: 600; }
 d-article h2, d-article h3 { scroll-margin-top: 6rem; }
 @media (max-width: 575px) {
-  .thesis-memory .memory-inputs { grid-template-columns: 1fr; }
   .thesis-table th, .thesis-table td { padding: .5rem .35rem; font-size: .88em; }
 }
 .thesis-languages { font-size: .9em; margin-bottom: 1.8rem; }

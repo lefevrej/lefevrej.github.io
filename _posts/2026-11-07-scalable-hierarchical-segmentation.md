@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: "Segmenting large images with less memory"
+title: "Segmenting large images with fewer resources"
 description: "Exact out-of-core computation and incremental interaction, from a CIFRE PhD at LIGM and Thermo Fisher Scientific."
 date: 2026-11-07
 lang: en
@@ -18,9 +18,11 @@ authors:
     affiliations:
       name: "Thermo Fisher Scientific and LIGM, Université Gustave Eiffel"
 toc:
+  - name: "One image, several scales"
+    id: segmentation-hierarchy
   - name: "First contribution: exact out-of-core computation"
     id: exact-out-of-core-computation
-  - name: "What fits on a workstation"
+  - name: "How large an image can we process?"
     id: workstation-capacity
   - name: "More compact representations"
     id: compact-representations
@@ -36,14 +38,25 @@ images:
 
 <p class="thesis-languages" aria-label="Reading language"><strong>English</strong> · <a href="{{ '/blog/2026/segmentation-hierarchique-hors-coeur/' | relative_url }}" lang="fr" hreflang="fr">Lire en français</a></p>
 
-Electron microscopy produces 3D images containing billions of voxels. Analysing them requires **segmentation**: identifying and delineating regions of interest. Two obstacles follow: the memory needed for the computation and the delays that interrupt interactive work.
+Objects of interest in an image can occur at **different scales**: a cell and its organelles, an animal and its body parts. **Segmentation** delineates these regions. A single level of detail is therefore not always enough to represent the structures relevant to an analysis.
 
-My CIFRE PhD, *Scalable Algorithms for Hierarchical Image and Data Segmentation*, carried out at **ESIEE Paris between LIGM and Thermo Fisher Scientific**, explores **two distinct problems**: **exact out-of-core computation** to control memory use, and **incremental interactive segmentation** to accelerate user corrections. An Amira<sup>™</sup> demonstrator provides a route towards industrial transfer.<d-cite key="lefevre2026thesis"></d-cite>
+My CIFRE PhD, *Scalable Algorithms for Hierarchical Image and Data Segmentation*, carried out at **ESIEE Paris between LIGM and Thermo Fisher Scientific**, aims to make **hierarchical segmentation** practical for large images despite its memory and computation costs.<d-cite key="lefevre2026thesis"></d-cite>
+
+## One image, several scales
+{: #segmentation-hierarchy }
+
+A **segmentation hierarchy** brings together several partitions of the same image, from fine to coarse. Small regions progressively merge into larger ones. These partitions are **nested**: two regions in the hierarchy are either disjoint, or one contains the other.
+
+A whole bird can thus be found at one scale and its beak at another. **The hierarchy lets us choose regions at the level of detail appropriate to each object**, without imposing a single scale on the whole analysis. The figure below connects the image partitions to their tree representation.
+
+{% include thesis-hierarchy.html lang=page.lang %}
+
+Building and using this representation has a cost: relationships between regions must be stored and processed alongside the pixels. For the 3D volumes containing billions of voxels produced by electron microscopy, **RAM** becomes a limitation. When a user refines a segmentation, **response time** also matters. The two contributions address these constraints: computing hierarchies with less memory, and accelerating interactive corrections.
 
 ## First contribution: exact out-of-core computation
 {: #exact-out-of-core-computation }
 
-A 3.35 GB image can require hundreds of gigabytes to construct the structures used for segmentation. The thesis experiments include an 8-bit FIB-SEM volume of **2048 × 1536 × 1065 voxels**, approximately **3.35 billion voxels**. The classical in-core algorithm could not process the complete volume on the 256 GB workstation used in the study.<d-cite key="lucchi2012"></d-cite>
+An **in-core** method keeps the image and its computation structures in RAM. Those structures can be much larger than the pixels: a 3.35 GB image can require hundreds of gigabytes to construct its hierarchy. The thesis experiments include an 8-bit FIB-SEM volume of **2048 × 1536 × 1065 voxels**, approximately **3.35 billion voxels**. The classical in-core algorithm could not process the complete volume on the 256 GB workstation used in the study.<d-cite key="lucchi2012"></d-cite>
 
 An **out-of-core algorithm** keeps data on disk and loads only the blocks needed for the current computation.
 
@@ -90,12 +103,12 @@ The framework extends to regional attributes—area, volume, height, and minima�
   <figcaption>From a tiled image to hierarchical analysis. The TikZ overview from my defense connects the distributed representation to region attributes and segmentation operations.</figcaption>
 </figure>
 
-## What fits on a workstation
+## How large an image can we process?
 {: #workstation-capacity }
 
-For the memory question, consider a **32 GB workstation** with **16 GB reserved for the system and other applications**: this leaves **16 GB for computation**. Models derived from the experiments suggest approximately **98 million voxels in core**, compared with **5.3 billion using a compact out-of-core representation**. The compact representation is explained in the [next section](#compact-representations).
+File size alone does not tell us whether an image can be processed: the hierarchy and computation also require memory. Inverting the models derived from the experiments gives an **estimated maximum image size for a given RAM budget**.
 
-These are **estimates** for uncompressed 8-bit images, assuming comparable memory coefficients. The factor of approximately **55** is not a measured capacity gain on that workstation.
+With **32 GB for computation**, the models suggest approximately **196 MB of image data in core**, compared with **10.7 GB using an optimized out-of-core representation**, for uncompressed 8-bit images. The compact representation is explained in the [next section](#compact-representations).
 
 <figure class="l-page thesis-figure">
   <img src="{{ '/assets/img/posts/scalable-segmentation/incore-memory.svg' | relative_url }}" loading="lazy" alt="Measured in-core and causal out-of-core peak RAM as image size increases. The in-core curve reaches approximately 239 GB at an image size of 1.47 GB." data-zoomable>
@@ -103,31 +116,24 @@ These are **estimates** for uncompressed 8-bit images, assuming comparable memor
 </figure>
 
 <section class="thesis-memory" aria-labelledby="memory-model-title" data-thesis-memory data-locale="en">
-  <h3 id="memory-model-title">Explore the memory assumptions</h3>
-  <p>Change the RAM budget to compare the two illustrative models. All sizes use decimal GB; image sizes refer to uncompressed 8-bit data.</p>
-  <div class="memory-inputs">
-    <label for="memory-total">Installed RAM in GB
-      <input id="memory-total" type="number" min="1" max="4096" step="1" value="32" inputmode="decimal">
-    </label>
-    <label for="memory-reserved">RAM reserved for the system and other apps in GB
-      <input id="memory-reserved" type="number" min="0" max="4096" step="1" value="16" inputmode="decimal">
-    </label>
+  <h3 id="memory-model-title">Estimate the maximum image size</h3>
+  <p>Choose the RAM available for computation. The table estimates the maximum uncompressed 8-bit image size under the two models.</p>
+  <div class="memory-slider">
+    <label for="memory-total">RAM for computation : <strong><output data-memory-budget>32 GB</output></strong></label>
+    <input id="memory-total" type="range" min="32" max="256" step="4" value="32" aria-valuetext="32 GB">
+    <div class="memory-range-ends" aria-hidden="true"><span>32 GB</span><span>256 GB</span></div>
   </div>
-  <div aria-live="polite" aria-atomic="true">
-    <p class="memory-error" data-memory-error hidden></p>
-    <p>Available working budget: <strong><output data-memory-budget>16 GB</output></strong>.</p>
-    <div class="thesis-table">
-      <table>
-        <thead><tr><th scope="col">Model</th><th scope="col">Estimated image size</th><th scope="col">8-bit voxel count</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">In core</th><td><output data-memory-incore>98 MB</output></td><td><output data-memory-incore-voxels>98 million</output></td></tr>
-          <tr><th scope="row">Optimized out of core</th><td><output data-memory-qfz>5.3 GB</output></td><td><output data-memory-qfz-voxels>5.3 billion</output></td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="thesis-table" aria-live="polite" aria-atomic="true">
+    <table>
+      <thead><tr><th scope="col">Method</th><th scope="col">Estimated maximum image size</th><th scope="col">8-bit voxel count</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">In core</th><td><output data-memory-incore>196 MB</output></td><td><output data-memory-incore-voxels>196 million</output></td></tr>
+        <tr><th scope="row">Optimized out of core</th><td><output data-memory-qfz>10.7 GB</output></td><td><output data-memory-qfz-voxels>10.7 billion</output></td></tr>
+      </tbody>
+    </table>
   </div>
-  <p><small>Estimates without an additional safety margin. The optimization and its parameters are explained in the <a href="#compact-representations">next section</a>. The coefficient depends on those choices, image content, and partitioning; it is not a capacity guarantee.</small></p>
-  <noscript><p>The default estimates above use 32 GB installed and 16 GB reserved. Enable JavaScript to change these assumptions.</p></noscript>
+  <p><small>Estimates without an additional safety margin. The optimized representation and its parameters are explained in the <a href="#compact-representations">next section</a>. Results depend on the data, partitioning, and implementation; they are not capacity guarantees.</small></p>
+  <noscript><p>The displayed estimates use a 32 GB budget. Enable JavaScript to explore other budgets.</p></noscript>
 </section>
 
 {% details Calculations and assumptions %}
@@ -137,16 +143,18 @@ $$
 M_{\mathrm{in\ core}}\approx162.94S+0.062.
 $$
 
-The optimized configuration reaches a minimum close to three times the raw image size. For a 16 GB budget:
+The optimized out-of-core configuration reaches a minimum close to three times the image size. For a RAM budget $$B$$, the estimated maximum image sizes are therefore
 
 $$
-S_{\mathrm{in\ core}}\approx\frac{16-0.062}{162.94}\approx0.098\text{ GB},
-\qquad S_{\mathrm{out\ of\ core}}\approx\frac{16}{3}\approx5.3\text{ GB}.
+S_{\max,\mathrm{in\ core}}\approx\frac{B-0.062}{162.94},
+\qquad S_{\max,\mathrm{out\ of\ core}}\approx\frac{B}{3}.
 $$
+
+For $$B=32$$ GB, this gives approximately $$0.196$$ GB in core and $$10.7$$ GB out of core.
 
 Continuing the in-core trend to the complete 3.35 GB volume predicts about **550 GB**, compared with the optimized **measured minimum of 10 GB**: roughly **98% less RAM by estimation**. This comparison between the Chapter 4 and Chapter 6 implementations is distinct from the measured 84% gain between out-of-core configurations, [presented below](#compact-representations).
 
-The fit was reconstructed from plotted points rather than raw measurement logs. The out-of-core coefficient depends on image content, partitioning, and the representation choices explained in the [next section](#compact-representations). It is not a universal capacity limit.
+The fit was reconstructed from plotted points rather than raw measurement logs. The out-of-core coefficient depends on image content, partitioning, and the representation choices explained in the [next section](#compact-representations). It is not a universal capacity limit. GB are decimal: for an uncompressed 8-bit image, 1 GB corresponds to one billion voxels.
 {% enddetails %}
 
 ## More compact representations
@@ -186,7 +194,9 @@ Both configurations are out-of-core. They use pixel-level and superpixel represe
 ## Second contribution: faster interactive corrections
 {: #interactive-segmentation }
 
-This second contribution concerns **responsiveness**, when the image and computation structures fit in RAM. In interactive segmentation, the user identifies objects of interest and the background with **markers**, inspects the result, then adds or erases markers to refine the boundaries.
+The first contribution makes large images tractable despite limited RAM. A different obstacle appears during use: **waiting for the result after each correction**. This second contribution uses the hierarchy to accelerate **interactive watershed segmentation**, when the image and computation structures fit in memory.
+
+In interactive segmentation, the user identifies objects of interest and the background with **markers**, inspects the result, then adds or erases markers to refine the boundaries.
 
 **The workflow is incremental by nature**: the image remains the same while the user’s instructions evolve step by step. Yet non-incremental watershed implementations treat each correction as a new problem, recomputing the segmentation across the entire image even for a local edit. Repeating this computation makes the user wait after each correction.
 

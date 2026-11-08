@@ -18,13 +18,15 @@ authors:
     affiliations:
       name: "Thermo Fisher Scientific et LIGM, Université Gustave Eiffel"
 toc:
+  - name: "Une image, plusieurs échelles"
+    id: hierarchie-de-segmentation
   - name: "Premier volet : le calcul exact hors-cœur"
     id: calcul-hors-coeur
-  - name: "Que peut traiter une station de travail"
+  - name: "Quelle taille d’image peut-on traiter ?"
     id: station-de-travail
   - name: "Des représentations plus compactes"
     id: representations-compactes
-  - name: "Deuxième volet : segmentation interactive incrémentale par lignes de partage des eaux"
+  - name: "Deuxième volet : accélérer la segmentation interactive"
     id: segmentation-interactive
   - name: "Un partenariat industriel et scientifique"
     id: partenariat
@@ -36,14 +38,25 @@ images:
 
 <p class="thesis-languages" aria-label="Langue de lecture"><strong>Français</strong> · <a href="{{ '/blog/2026/scalable-hierarchical-segmentation/' | relative_url }}" lang="en" hreflang="en">Read in English</a></p>
 
-Les progrès de la microscopie électronique produisent des images 3D de plusieurs milliards de voxels. Pour les analyser, il faut **délimiter les régions d’intérêt** : c’est la segmentation. Deux obstacles apparaissent alors : les besoins en mémoire vive et les temps de calcul qui dégradent l’expérience utilisateur.
+Les objets d’intérêt d’une image peuvent apparaître à **plusieurs échelles** : une cellule et ses organites, un animal et les parties de son corps. La **segmentation** consiste à délimiter ces régions. Un unique niveau de découpage ne suffit donc pas toujours à représenter les structures utiles à l’analyse.
 
-Ma thèse CIFRE, *Algorithmes scalables pour la segmentation hiérarchique d’images et de données*, menée à **ESIEE Paris, entre le LIGM et Thermo Fisher Scientific**, explore **deux sujets distincts** : le **calcul exact hors-cœur**, pour maîtriser les besoins en mémoire, et la **segmentation interactive incrémentale par lignes de partage des eaux**, pour accélérer les corrections de l’utilisateur. Un démonstrateur dans Amira<sup>™</sup> prépare leur valorisation industrielle.
+Ma thèse CIFRE, *Algorithmes scalables pour la segmentation hiérarchique d’images et de données*, menée à **ESIEE Paris, entre le LIGM et Thermo Fisher Scientific**, cherche à rendre la **segmentation hiérarchique** utilisable sur de grandes images, malgré ses besoins en mémoire et en temps de calcul.<d-cite key="lefevre2026thesis"></d-cite>
+
+## Une image, plusieurs échelles
+{: #hierarchie-de-segmentation }
+
+Une **hiérarchie de segmentation** rassemble plusieurs partitions de la même image, de la plus fine à la plus grossière. De petites régions se regroupent progressivement pour en former de plus grandes. Ces partitions sont **imbriquées** : deux régions de la hiérarchie sont disjointes, ou l’une est incluse dans l’autre.
+
+On peut ainsi rechercher un oiseau entier à une échelle et son bec à une autre. **La hiérarchie permet de choisir les régions au niveau de détail adapté à l’objet recherché**, sans fixer une seule échelle pour toute l’analyse. La figure ci-dessous relie les partitions de l’image à leur représentation par un arbre.
+
+{% include thesis-hierarchy.html lang=page.lang %}
+
+Construire et exploiter cette représentation a toutefois un coût : il faut stocker et manipuler les relations entre régions, en plus des pixels. Sur les volumes 3D de plusieurs milliards de voxels produits en microscopie électronique, la **mémoire vive** devient un obstacle. Lorsqu’un utilisateur affine une segmentation, c’est aussi le **temps de réponse** qui compte. Les deux volets de la thèse répondent à ces contraintes : calculer les hiérarchies avec moins de mémoire, puis accélérer les corrections interactives.
 
 ## Premier volet : le calcul exact hors-cœur
 {: #calcul-hors-coeur }
 
-Une image de 3,35 Go peut nécessiter plusieurs centaines de gigaoctets pour construire les structures utiles à sa segmentation. Le volume FIB-SEM étudié dans la thèse contient **2048 × 1536 × 1065 voxels**, soit environ **3,35 milliards de voxels en 8 bits**. L’algorithme classique en cœur ne pouvait pas traiter ce volume complet sur la station de 256 Go utilisée pour l’étude.<d-cite key="lucchi2012"></d-cite>
+Une méthode **en cœur** conserve l’image et ses structures de calcul en mémoire vive. Ces structures peuvent être bien plus volumineuses que les pixels : une image de 3,35 Go peut nécessiter plusieurs centaines de gigaoctets pour construire sa hiérarchie. Le volume FIB-SEM étudié dans la thèse contient **2048 × 1536 × 1065 voxels**, soit environ **3,35 milliards de voxels en 8 bits**. L’algorithme classique en cœur ne pouvait pas traiter ce volume complet sur la station de 256 Go utilisée pour l’étude.<d-cite key="lucchi2012"></d-cite>
 
 Le principe de l'algoritmique **hors-cœur** est de conserver les données sur disque et de ne charger en mémoire que les blocs nécessaires à l’étape courante afin de limiter l’usage de la mémoire vive.
 
@@ -90,12 +103,12 @@ Ce cadre s’étend au calcul de caractéristiques régionales comme l'aire, le 
   <figcaption>De l’image découpée en blocs à l’analyse hiérarchique : construction de la distribution, calcul d’attributs et opérations de segmentation.</figcaption>
 </figure>
 
-## Que peut traiter une station de travail
+## Quelle taille d’image peut-on traiter ?
 {: #station-de-travail }
 
-Pour le volet mémoire, considérons une station de **32 Go**, dont **16 Go réservés au système et aux autres applications** : il reste **16 Go pour le calcul**. Les modèles issus des expériences donnent un ordre de grandeur d’environ **98 millions de voxels en cœur**, contre **5,3 milliards avec une représentation hors-cœur compacte**. La construction de cette représentation compacte est détaillée dans la [section suivante](#representations-compactes).
+La taille du fichier ne suffit pas à savoir si une image peut être traitée : il faut aussi tenir compte de la mémoire nécessaire à la hiérarchie et au calcul. En inversant les modèles issus des expériences, on obtient une **taille maximale d’image estimée pour un budget mémoire donné**.
 
-Ces capacités sont estimées pour des images 8 bits. Elles supposent que les coefficients observés restent comparables : le facteur d’environ **55** n’est pas une capacité mesurée sur cette station.
+Avec **32 Go pour le calcul**, ces modèles donnent environ **196 Mo d’image en cœur**, contre **10,7 Go avec une représentation hors-cœur optimisée**, pour des images 8 bits non compressées. Le principe de cette représentation compacte est détaillé dans la [section suivante](#representations-compactes).
 
 <figure class="l-page thesis-figure">
   <img src="{{ '/assets/img/posts/scalable-segmentation/incore-memory.svg' | relative_url }}" loading="lazy" alt="Pic mémoire en cœur et hors-cœur causal selon la taille de l’image. Le calcul en cœur atteint environ 239 Go pour une image de 1,47 Go." data-zoomable>
@@ -103,31 +116,24 @@ Ces capacités sont estimées pour des images 8 bits. Elles supposent que les co
 </figure>
 
 <section class="thesis-memory" aria-labelledby="memory-model-title" data-thesis-memory data-locale="fr">
-  <h3 id="memory-model-title">Explorer le budget mémoire</h3>
-  <p>Modifiez le budget mémoire pour comparer les deux modèles. Les Go sont décimaux ; les images sont considérées en 8 bits non compressés.</p>
-  <div class="memory-inputs">
-    <label for="memory-total">Mémoire vive installée en Go
-      <input id="memory-total" type="number" min="1" max="4096" step="1" value="32" inputmode="decimal">
-    </label>
-    <label for="memory-reserved">Mémoire réservée au système et aux applications en Go
-      <input id="memory-reserved" type="number" min="0" max="4096" step="1" value="16" inputmode="decimal">
-    </label>
+  <h3 id="memory-model-title">Estimer la taille maximale d’image</h3>
+  <p>Choisissez la mémoire disponible pour le calcul. Le tableau estime la taille maximale d’une image 8 bits non compressée selon les deux modèles.</p>
+  <div class="memory-slider">
+    <label for="memory-total">Mémoire vive pour le calcul : <strong><output data-memory-budget>32 Go</output></strong></label>
+    <input id="memory-total" type="range" min="32" max="256" step="4" value="32" aria-valuetext="32 Go">
+    <div class="memory-range-ends" aria-hidden="true"><span>32 Go</span><span>256 Go</span></div>
   </div>
-  <div aria-live="polite" aria-atomic="true">
-    <p class="memory-error" data-memory-error hidden></p>
-    <p>Budget disponible pour le calcul : <strong><output data-memory-budget>16 Go</output></strong>.</p>
-    <div class="thesis-table">
-      <table>
-        <thead><tr><th scope="col">Modèle</th><th scope="col">Taille estimée de l’image</th><th scope="col">Nombre de voxels en 8 bits</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">En cœur</th><td><output data-memory-incore>98 Mo</output></td><td><output data-memory-incore-voxels>98 millions</output></td></tr>
-          <tr><th scope="row">Hors-cœur optimisé</th><td><output data-memory-qfz>5,3 Go</output></td><td><output data-memory-qfz-voxels>5,3 milliards</output></td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="thesis-table" aria-live="polite" aria-atomic="true">
+    <table>
+      <thead><tr><th scope="col">Méthode</th><th scope="col">Taille maximale estimée de l’image</th><th scope="col">Nombre de voxels en 8 bits</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">En cœur</th><td><output data-memory-incore>196 Mo</output></td><td><output data-memory-incore-voxels>196 millions</output></td></tr>
+        <tr><th scope="row">Hors-cœur optimisé</th><td><output data-memory-qfz>10,7 Go</output></td><td><output data-memory-qfz-voxels>10,7 milliards</output></td></tr>
+      </tbody>
+    </table>
   </div>
-  <p><small>Estimations sans marge supplémentaire. L’optimisation et ses paramètres sont présentés dans la <a href="#representations-compactes">section suivante</a>. Le coefficient dépend de ces choix, du contenu de l’image et du découpage ; il ne constitue pas une capacité garantie.</small></p>
-  <noscript><p>Les valeurs par défaut correspondent à 32 Go installés et 16 Go réservés. Activez JavaScript pour modifier ces hypothèses.</p></noscript>
+  <p><small>Estimations sans marge supplémentaire. La représentation optimisée et ses paramètres sont présentés dans la <a href="#representations-compactes">section suivante</a>. Les résultats dépendent des données, du découpage et de l’implémentation ; ils ne constituent pas une capacité garantie.</small></p>
+  <noscript><p>Les valeurs affichées correspondent à un budget de 32 Go. Activez JavaScript pour explorer les autres budgets.</p></noscript>
 </section>
 
 {% details Les calculs et leurs hypothèses %}
@@ -137,16 +143,18 @@ $$
 M_{\mathrm{en\ cœur}}\approx162{,}94S+0{,}062.
 $$
 
-La configuration optimisée atteint un minimum proche de trois fois la taille de l’image. Avec 16 Go disponibles :
+La configuration hors-cœur optimisée atteint un minimum proche de trois fois la taille de l’image. Pour un budget mémoire $$B$$, les tailles maximales estimées sont donc
 
 $$
-S_{\mathrm{en\ cœur}}\approx\frac{16-0{,}062}{162{,}94}\approx0{,}098\text{ Go},
-\qquad S_{\mathrm{hors\ cœur}}\approx\frac{16}{3}\approx5{,}3\text{ Go}.
+S_{\max,\mathrm{en\ cœur}}\approx\frac{B-0{,}062}{162{,}94},
+\qquad S_{\max,\mathrm{hors\ cœur}}\approx\frac{B}{3}.
 $$
+
+Pour $$B=32$$ Go, cela donne environ $$0{,}196$$ Go en cœur et $$10{,}7$$ Go hors-cœur.
 
 Pour le volume complet de 3,35 Go, prolonger la tendance en cœur donne environ **550 Go**, à comparer aux **10 Go mesurés** pour la configuration optimisée : environ **98 % de réduction estimée**. Cette comparaison entre les implémentations des chapitres 4 et 6 est distincte du gain mesuré de 84 % entre configurations hors-cœur, [présenté plus loin](#representations-compactes).
 
-L’ajustement a été reconstitué à partir des points de la figure, sans les journaux de mesure bruts. Le coefficient hors-cœur dépend du contenu de l’image, du découpage et des choix de représentation détaillés dans la [section suivante](#representations-compactes). Il ne définit pas une limite universelle de la méthode.
+L’ajustement a été reconstitué à partir des points de la figure, sans les journaux de mesure bruts. Le coefficient hors-cœur dépend du contenu de l’image, du découpage et des choix de représentation détaillés dans la [section suivante](#representations-compactes). Il ne définit pas une limite universelle de la méthode. Les Go sont décimaux : pour une image 8 bits non compressée, 1 Go correspond à un milliard de voxels.
 {% enddetails %}
 
 ## Des représentations plus compactes
@@ -183,12 +191,14 @@ Les expériences de construction de la distribution, menées avec l’implément
 
 Les deux configurations sont hors-cœur : la comparaison porte sur le niveau pixel et le niveau superpixel, avec des stratégies de partitionnement différentes. Les 84 % comparent les minima obtenus en faisant varier le nombre de blocs ; le stockage et le temps sont comparés à 80 blocs.
 
-## Deuxième volet : segmentation interactive incrémentale par lignes de partage des eaux
+## Deuxième volet : accélérer la segmentation interactive
 {: #segmentation-interactive }
 
-Ce second volet porte sur la **réactivité**, lorsque l’image et les structures de calcul tiennent en mémoire. En segmentation interactive, l’utilisateur désigne les objets d’intérêt et le fond à l’aide de **marqueurs**, observe le résultat, puis ajoute ou efface des marqueurs pour afininer les contours.
+Le premier volet permet de traiter de grandes images malgré la mémoire limitée. Un autre obstacle apparaît pendant l’utilisation : **attendre le résultat après chaque correction**. Ce second volet exploite la hiérarchie pour accélérer la **segmentation interactive par ligne de partage des eaux**, lorsque l’image et les structures de calcul tiennent en mémoire.
 
-**Cette démarche est incrémentale par nature** : d’une étape à l’autre, l’image reste la même et les indications de l’utilisateur évoluent progressivement. Pourtant, les implémentations courantesde la ligne de partage des eaux traitent chaque correction comme un nouveau problème : elles relancent le calcul de la segmentation sur toute l’image, même pour une modification locale. Ces recalculs successifs imposent une attente répétée à l’utilisateur.
+En segmentation interactive, l’utilisateur désigne les objets d’intérêt et le fond à l’aide de **marqueurs**, observe le résultat, puis ajoute ou efface des marqueurs pour affiner les contours.
+
+**Cette démarche est incrémentale par nature** : d’une étape à l’autre, l’image reste la même et les indications de l’utilisateur évoluent progressivement. Pourtant, les implémentations non incrémentales de la ligne de partage des eaux traitent chaque correction comme un nouveau problème : elles relancent le calcul de la segmentation sur toute l’image, même pour une modification locale. Ces recalculs successifs imposent une attente répétée à l’utilisateur.
 
 Notre méthode **incrémentale** conserve l’état du calcul entre deux interactions. Elle réutilise les résultats précédents et actualise uniquement les régions affectées par l’ajout ou le retrait d’un marqueur. Le coût de la mise à jour est proportionnel au nombre de pixels concernés : une correction locale peut donc être prise en compte rapidement, ce qui facilite l’affinage progressif de la segmentation.<d-cite key="lebon2023,lebon2025"></d-cite>
 

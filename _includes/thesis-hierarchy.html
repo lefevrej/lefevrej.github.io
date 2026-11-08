@@ -1,0 +1,31 @@
+{% assign hierarchy_fr = false %}
+{% if include.lang == 'fr' %}{% assign hierarchy_fr = true %}{% endif %}
+<link rel="stylesheet" href="{{ '/assets/css/thesis-hierarchy.css' | relative_url }}">
+<figure class="l-page hierarchy-demo" data-lang="{{ include.lang | default: 'en' }}" data-source="{{ '/assets/data/thesis-hierarchy/hierarchies.json' | relative_url }}" aria-label="{% if hierarchy_fr %}Explorer une hiérarchie de segmentation{% else %}Explore a segmentation hierarchy{% endif %}">
+  <div class="hierarchy-controls">
+    <label>{% if hierarchy_fr %}Image{% else %}Image{% endif %}
+      <select class="hierarchy-image-choice" disabled aria-label="{% if hierarchy_fr %}Choisir une image{% else %}Choose an image{% endif %}"><option>{% if hierarchy_fr %}Chargement…{% else %}Loading…{% endif %}</option></select>
+    </label>
+  </div>
+  <div class="hierarchy-scale">
+    <label>{% if hierarchy_fr %}Échelle{% else %}Scale{% endif %} <output class="hierarchy-scale-value">{% if hierarchy_fr %}Intermédiaire{% else %}Intermediate{% endif %}</output>
+      <input class="hierarchy-scale-input" type="range" min="0" max="2" step="1" value="1" disabled>
+    </label>
+    <div class="hierarchy-scale-ticks" aria-hidden="true"><span>{% if hierarchy_fr %}Fine{% else %}Fine{% endif %}</span><span>{% if hierarchy_fr %}Intermédiaire{% else %}Intermediate{% endif %}</span><span>{% if hierarchy_fr %}Globale{% else %}Global{% endif %}</span></div>
+  </div>
+  <p class="hierarchy-instruction">{% if hierarchy_fr %}Déplacez le curseur, puis cliquez dans l’image ou sur un nœud de la hiérarchie.{% else %}Move the slider, then click the image or a node in the hierarchy.{% endif %}</p>
+  <div class="hierarchy-views">
+  <div class="hierarchy-picture">
+    <img class="hierarchy-photo" src="{{ '/assets/data/thesis-hierarchy/2010_004483.jpg' | relative_url }}" width="460" height="500" alt="{% if hierarchy_fr %}Un oiseau posé sur un rocher, exemple de segmentation en régions imbriquées.{% else %}A bird on a rock, an example of segmentation into nested regions.{% endif %}">
+    <canvas class="hierarchy-overlay" aria-label="{% if hierarchy_fr %}Cliquer pour sélectionner une région. Au clavier, sélectionner un nœud de la hiérarchie avec Entrée ou Espace.{% else %}Click to select a region. Using the keyboard, select a hierarchy node with Enter or Space.{% endif %}"></canvas>
+  </div>
+  <div class="hierarchy-graph">
+  <div class="hierarchy-tree-heading"><strong>{% if hierarchy_fr %}Hiérarchie des régions{% else %}Region hierarchy{% endif %}</strong><span>{% if hierarchy_fr %}Pointillés : coupe à l’échelle choisie{% else %}Dashed line: cut at the selected scale{% endif %}</span></div>
+  <div class="hierarchy-tree-wrap"><svg class="hierarchy-tree" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="{% if hierarchy_fr %}Hiérarchie d’inclusion des régions, nœuds sélectionnables{% else %}Region inclusion hierarchy, with selectable nodes{% endif %}"></svg></div>
+  </div>
+  </div>
+  <p class="hierarchy-selection" role="status" aria-live="polite">{% if hierarchy_fr %}Chargement de la hiérarchie…{% else %}Loading the hierarchy…{% endif %}</p>
+  <figcaption>{% if hierarchy_fr %}Une même image, plusieurs partitions imbriquées. Chaque nœud représente une région ; un parent est l’union de ses enfants. Les nœuds colorés forment la partition affichée. Ces trois niveaux proviennent du jeu de données <strong>Ultrametric Pascal-Part</strong>, présenté par Raphael Lapertot, Giovanni Chierchia et Benjamin Perret.<d-cite key="lapertot2024"></d-cite>{% else %}One image, several nested partitions. Each node represents a region; a parent is the union of its children. Coloured nodes form the displayed partition. These three levels come from the <strong>Ultrametric Pascal-Part</strong> dataset, introduced by Raphael Lapertot, Giovanni Chierchia, and Benjamin Perret.<d-cite key="lapertot2024"></d-cite>{% endif %}</figcaption>
+  <noscript><p>{% if hierarchy_fr %}Activez JavaScript pour explorer les partitions et l’arbre des régions.{% else %}Enable JavaScript to explore the partitions and region tree.{% endif %}</p></noscript>
+</figure>
+<script defer src="{{ '/assets/js/thesis-hierarchy.js' | relative_url }}"></script>
