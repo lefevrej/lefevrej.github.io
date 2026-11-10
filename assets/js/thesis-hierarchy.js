@@ -100,6 +100,7 @@
         return position;
       }
       place(sample.root);
+      if (leafOrder.length === 1) positions.get(sample.root).y = 35;
       tree.setAttribute('viewBox', `0 0 ${width} ${height}`);
       // Reuse nodes during resize/selection so keyboard focus is preserved.
       const focused = tree.contains(document.activeElement) ? document.activeElement.dataset.node : null;

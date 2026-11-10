@@ -16,7 +16,7 @@
   <p class="hierarchy-instruction">{% if hierarchy_fr %}Déplacez le curseur, puis cliquez dans l’image ou sur un nœud de la hiérarchie.{% else %}Move the slider, then click the image or a node in the hierarchy.{% endif %}</p>
   <div class="hierarchy-views">
   <div class="hierarchy-picture">
-    <img class="hierarchy-photo" src="{{ '/assets/data/thesis-hierarchy/2010_004483.jpg' | relative_url }}" width="460" height="500" alt="{% if hierarchy_fr %}Un oiseau posé sur un rocher, exemple de segmentation en régions imbriquées.{% else %}A bird on a rock, an example of segmentation into nested regions.{% endif %}">
+    <img class="hierarchy-photo" width="460" height="500" alt="{% if hierarchy_fr %}Image sélectionnée pour explorer les régions imbriquées.{% else %}Selected image for exploring nested regions.{% endif %}">
     <canvas class="hierarchy-overlay" aria-label="{% if hierarchy_fr %}Cliquer pour sélectionner une région. Au clavier, sélectionner un nœud de la hiérarchie avec Entrée ou Espace.{% else %}Click to select a region. Using the keyboard, select a hierarchy node with Enter or Space.{% endif %}"></canvas>
   </div>
   <div class="hierarchy-graph">
@@ -25,7 +25,7 @@
   </div>
   </div>
   <p class="hierarchy-selection" role="status" aria-live="polite">{% if hierarchy_fr %}Chargement de la hiérarchie…{% else %}Loading the hierarchy…{% endif %}</p>
-  <figcaption>{% if hierarchy_fr %}Une même image, plusieurs partitions imbriquées. Chaque nœud représente une région ; un parent est l’union de ses enfants. Les nœuds colorés forment la partition affichée. Ces trois niveaux proviennent du jeu de données <strong>Ultrametric Pascal-Part</strong>, présenté par Raphael Lapertot, Giovanni Chierchia et Benjamin Perret.<d-cite key="lapertot2024"></d-cite>{% else %}One image, several nested partitions. Each node represents a region; a parent is the union of its children. Coloured nodes form the displayed partition. These three levels come from the <strong>Ultrametric Pascal-Part</strong> dataset, introduced by Raphael Lapertot, Giovanni Chierchia, and Benjamin Perret.<d-cite key="lapertot2024"></d-cite>{% endif %}</figcaption>
+  <figcaption>{% if hierarchy_fr %}Une même image, plusieurs partitions imbriquées. Chaque nœud représente une région ; un parent est l’union de ses enfants. Les nœuds colorés forment la partition affichée. Ces trois niveaux proviennent du jeu de données <strong>Ultrametric Pascal-Part</strong>, présenté par Raphael Lapertot, Giovanni Chierchia et Benjamin Perret.<d-cite key="lapertot2024"></d-cite>{% else %}One image, several nested partitions. Each node represents a region; a parent is the union of its children. Coloured nodes form the displayed partition. These three levels come from the <strong>Ultrametric Pascal-Part</strong> dataset, introduced by Raphael Lapertot, Giovanni Chierchia, and Benjamin Perret.<d-cite key="lapertot2024"></d-cite>{% endif %} <a href="{{ '/assets/downloads/pascal-part-toolkit.zip' | relative_url }}" download>{% if hierarchy_fr %}Télécharger les scripts pour reproduire la figure ou ajouter des images{% else %}Download the scripts to reproduce the figure or add images{% endif %}</a>.</figcaption>
   <noscript><p>{% if hierarchy_fr %}Activez JavaScript pour explorer les partitions et l’arbre des régions.{% else %}Enable JavaScript to explore the partitions and region tree.{% endif %}</p></noscript>
 </figure>
 <script defer src="{{ '/assets/js/thesis-hierarchy.js' | relative_url }}"></script>
