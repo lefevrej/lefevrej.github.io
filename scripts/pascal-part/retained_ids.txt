@@ -1,0 +1,6 @@
+# Keep the current IDs, then append the images you want to add.
+2010_005715
+2010_005604
+2010_005565
+2010_005492
+2010_004483

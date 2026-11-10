@@ -29,3 +29,5 @@ Dataset reference: Raphael Lapertot, Giovanni Chierchia and Benjamin Perret,
 *Supervised Learning of Hierarchical Image Segmentation*, CIARP 2023,
 LNCS 14469, pp. 201–213, Springer (2024; first online 27 November 2023).
 https://doi.org/10.1007/978-3-031-49018-7_15
+
+For an extracted dataset and editable image selections, see scripts/pascal-part/README.md. The complete toolkit is available at assets/downloads/pascal-part-toolkit.zip.

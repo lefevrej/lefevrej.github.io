@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pascal-Part hierarchy preview</title>
+  <link rel="stylesheet" href="../../assets/css/thesis-hierarchy.css">
+  <style>
+    :root { color-scheme: light dark; --global-bg-color: #fff; --global-text-color: #252525; --global-text-color-light: #666; --global-theme-color: #087ba4; }
+    @media (prefers-color-scheme: dark) { :root { --global-bg-color: #1d1d1d; --global-text-color: #eee; --global-text-color-light: #aaa; --global-theme-color: #5fc0de; } }
+    body { margin: 0; padding: 1.25rem; background: var(--global-bg-color); color: var(--global-text-color); font: 16px/1.6 system-ui,sans-serif; }
+    main { max-width: 1050px; margin: auto; }
+    h1 { font-size: 1.5rem; }
+    a { color: var(--global-theme-color); }
+    .hierarchy-demo { margin-inline: 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Pascal-Part hierarchy preview</h1>
+  <p>Export your selection first, then reload this page. Move the scale slider or select a region in the image or hierarchy. Nodes also work with Enter or Space.</p>
+  <figure class="hierarchy-demo" data-lang="en" data-source="../../assets/data/thesis-hierarchy/hierarchies.json" aria-label="Explore a segmentation hierarchy">
+    <div class="hierarchy-controls"><label>Image<select class="hierarchy-image-choice" aria-label="Choose an image" disabled><option>Loading…</option></select></label></div>
+    <div class="hierarchy-scale">
+      <label>Scale <output class="hierarchy-scale-value">Intermediate</output><input class="hierarchy-scale-input" type="range" min="0" max="2" step="1" value="1" disabled></label>
+      <div class="hierarchy-scale-ticks" aria-hidden="true"><span>Fine</span><span>Intermediate</span><span>Global</span></div>
+    </div>
+    <p class="hierarchy-instruction">Click the image or a node in the hierarchy to select a region.</p>
+    <div class="hierarchy-views">
+      <div class="hierarchy-picture">
+        <img class="hierarchy-photo" width="500" height="375" alt="Selected dataset image">
+        <canvas class="hierarchy-overlay" aria-label="Click to select a region; hierarchy nodes provide keyboard selection."></canvas>
+      </div>
+      <div class="hierarchy-graph">
+        <div class="hierarchy-tree-heading"><strong>Region hierarchy</strong><span>Dashed line: cut at the selected scale</span></div>
+        <div class="hierarchy-tree-wrap"><svg class="hierarchy-tree" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Region inclusion hierarchy, with selectable nodes"></svg></div>
+      </div>
+    </div>
+    <p class="hierarchy-selection" role="status" aria-live="polite">Loading the hierarchy…</p>
+    <figcaption>Ultrametric Pascal-Part, Raphael Lapertot, Giovanni Chierchia and Benjamin Perret. <a href="https://doi.org/10.1007/978-3-031-49018-7_15">Supervised Learning of Hierarchical Image Segmentation</a>.</figcaption>
+    <noscript>Enable JavaScript to explore the hierarchy.</noscript>
+  </figure>
+</main>
+<script defer src="../../assets/js/thesis-hierarchy.js"></script>
+</body>
+</html>
