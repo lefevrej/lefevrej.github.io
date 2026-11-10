@@ -56,7 +56,7 @@ My CIFRE PhD, *Scalable Algorithms for Hierarchical Image and Data Segmentation*
 
 A **segmentation hierarchy** brings together several partitions of the same image, from fine to coarse. Small regions progressively merge into larger ones. These partitions are **nested**: two regions in the hierarchy are either disjoint, or one contains the other.
 
-A whole bird can thus be found at one scale and its beak at another. **The hierarchy lets us choose regions at the level of detail appropriate to each object**, without imposing a single scale on the whole analysis. The figure below connects the image partitions to their tree representation.
+A whole object can thus be found at one scale and one of its parts at another. **The hierarchy lets us choose regions at the level of detail appropriate to each object**, without imposing a single scale on the whole analysis. The figure below connects the image partitions to their tree representation.
 
 {% include thesis-hierarchy.html lang=page.lang %}
 
@@ -74,6 +74,10 @@ An **out-of-core algorithm** keeps data on disk and loads only the blocks needed
   <img class="diagram-dark" src="{{ '/assets/img/posts/scalable-segmentation/out-of-core-dark.svg' | relative_url }}" width="1600" height="578" alt="An out-of-core workflow: load a few image blocks from disk into limited main memory, process them with the CPU, and write the result back to disk." data-zoomable>
   <figcaption>The out-of-core principle. Only the working portion of the data is resident in RAM. This diagram is adapted directly from the TikZ figure in my defense slides.</figcaption>
 </figure>
+
+This partitioning must nevertheless respect the computation’s dependencies: some operations cannot be applied to independent blocks.
+
+{% include thesis-processing-callouts.html kind='local-global' lang=page.lang %}
 
 The scientific challenge is preserving **region inclusion relationships** across the complete image, including regions that span several blocks. Processing each block independently can introduce artificial boundaries:
 
@@ -105,6 +109,8 @@ The challenge is constructing these elements without first storing the complete 
 {% enddetails %}
 
 The framework extends to regional attributes—area, volume, height, and minima—and to **watershed segmentation**, including its hierarchical version.<d-cite key="lefevre2024"></d-cite>
+
+{% include thesis-processing-callouts.html kind='watershed' lang=page.lang %}
 
 <figure class="l-page thesis-figure thesis-diagram">
   <img class="diagram-light" src="{{ '/assets/img/posts/scalable-segmentation/analysis-overview.svg' | relative_url }}" width="1600" height="938" loading="lazy" alt="A tiled microscopy image is represented by a distribution of binary partition hierarchies. Attributes are computed across the distribution and used for operations including connected filtering and watershed segmentation." data-zoomable>

@@ -56,7 +56,7 @@ Ma thèse CIFRE, *Algorithmes scalables pour la segmentation hiérarchique d’i
 
 Une **hiérarchie de segmentation** rassemble plusieurs partitions de la même image, de la plus fine à la plus grossière. De petites régions se regroupent progressivement pour en former de plus grandes. Ces partitions sont **imbriquées** : deux régions de la hiérarchie sont disjointes, ou l’une est incluse dans l’autre.
 
-On peut ainsi rechercher un oiseau entier à une échelle et son bec à une autre. **La hiérarchie permet de choisir les régions au niveau de détail adapté à l’objet recherché**, sans fixer une seule échelle pour toute l’analyse. La figure ci-dessous relie les partitions de l’image à leur représentation par un arbre.
+On peut ainsi rechercher un objet entier à une échelle et l’une de ses parties à une autre. **La hiérarchie permet de choisir les régions au niveau de détail adapté à l’objet recherché**, sans fixer une seule échelle pour toute l’analyse. La figure ci-dessous relie les partitions de l’image à leur représentation par un arbre.
 
 {% include thesis-hierarchy.html lang=page.lang %}
 
@@ -74,6 +74,10 @@ Le principe de l'algoritmique **hors-cœur** est de conserver les données sur d
   <img class="diagram-dark" src="{{ '/assets/img/posts/scalable-segmentation/out-of-core-fr-dark.svg' | relative_url }}" width="1600" height="578" alt="Calcul hors-cœur : chargement de blocs depuis le disque, traitement dans une mémoire vive limitée, puis enregistrement des résultats." data-zoomable>
   <figcaption>Le principe du hors-cœur : seuls les blocs utiles sont présents en mémoire vive. Schéma adapté des slides de soutenance.</figcaption>
 </figure>
+
+Ce découpage doit toutefois respecter les dépendances du calcul : certaines opérations ne peuvent pas être appliquées à des blocs indépendants.
+
+{% include thesis-processing-callouts.html kind='local-global' lang=page.lang %}
 
 Le défi scientifique est de préserver les **relations d’inclusion entre les régions**, même lorsqu’une région couvre plusieurs blocs. Traiter chaque bloc indépendamment de manière naïve peut créer des frontières artificielles :
 
@@ -105,6 +109,8 @@ L’objectif est de construire ces éléments sans devoir stocker préalablement
 {% enddetails %}
 
 Ce cadre s’étend au calcul de caractéristiques régionales comme l'aire, le volume, la hauteur, les minima ainsi qu'à la segmentation par **ligne de partage des eaux**, notamment hiérarchique.<d-cite key="lefevre2024"></d-cite>
+
+{% include thesis-processing-callouts.html kind='watershed' lang=page.lang %}
 
 <figure class="l-page thesis-figure thesis-diagram">
   <img class="diagram-light" src="{{ '/assets/img/posts/scalable-segmentation/analysis-overview-fr.svg' | relative_url }}" width="1600" height="938" loading="lazy" alt="Une image de microscopie par blocs est représentée par une distribution de hiérarchies. Le calcul des attributs permet notamment le filtrage connexe et la ligne de partage des eaux." data-zoomable>

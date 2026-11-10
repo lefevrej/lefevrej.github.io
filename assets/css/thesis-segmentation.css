@@ -37,3 +37,27 @@ d-article h2, d-article h3 { scroll-margin-top: 6rem; }
 d-citation-list.thesis-reference-groups .thesis-reference-heading { list-style: none; margin: 1.8rem 0 .85rem; padding: 0; }
 d-citation-list.thesis-reference-groups .thesis-reference-heading h4 { margin: 0; color: var(--global-text-color); font-size: 1.1rem; font-weight: 700; line-height: 1.25; }
 d-citation-list.thesis-reference-groups .thesis-reference-heading h4::after { content: ""; display: block; width: 10rem; height: 2px; margin-top: .45rem; background: var(--global-theme-color); }
+
+/* Short conceptual explanations within the article flow. */
+d-article aside.thesis-explainer { position: static; float: none; width: auto; margin: 1.8rem 0; padding: 1.1rem 1.25rem; border-left: 3px solid var(--global-theme-color); background: var(--global-code-bg-color, var(--global-bg-color)); color: var(--global-text-color); font-size: 1rem; line-height: 1.65; }
+d-article .thesis-explainer h3 { margin: 0 0 .8rem; font-size: 1.15rem; line-height: 1.4; }
+d-article .thesis-explainer p { margin: .8rem 0; font-size: 1rem; line-height: 1.65; }
+d-article .thesis-explainer p:last-child { margin-bottom: 0; }
+.thesis-explainer-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; margin: 1.2rem 0 .5rem; }
+.thesis-explainer-pair figure { margin: 0; min-width: 0; }
+.thesis-explainer-pair img { display: block; width: 100%; height: auto; }
+.thesis-explainer-pair figcaption { margin-top: .4rem; color: var(--global-text-color); font-size: .8rem; line-height: 1.5; }
+d-article .thesis-explainer .thesis-explainer-source { font-size: .8rem; opacity: .85; }
+@media (max-width: 575px) {
+  d-article aside.thesis-explainer { padding: .9rem; }
+  .thesis-explainer-pair { gap: .6rem; }
+}
+
+/* Captions from the video include follow the article's colour theme. */
+.post.distill d-article figure > figcaption.caption { color: var(--global-text-color); opacity: .85; }
+
+.thesis-explainer-triptych { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 575px) {
+  .thesis-explainer-triptych { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .thesis-explainer-triptych figure:last-child { grid-column: 1 / -1; width: 100%; max-width: 340px; margin-inline: auto; }
+}

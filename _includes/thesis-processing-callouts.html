@@ -1,0 +1,47 @@
+{% assign explainer_fr = false %}
+{% if include.lang == 'fr' %}{% assign explainer_fr = true %}{% endif %}
+{% if include.kind == 'local-global' %}
+<aside class="l-body thesis-explainer" aria-labelledby="local-global-title">
+  <h3 id="local-global-title">{% if explainer_fr %}Calcul par blocs : traitements locaux et globaux{% else %}Blockwise computation: local and global processing{% endif %}</h3>
+  {% if explainer_fr %}
+  <p><strong>Un traitement local</strong> calcule le résultat en un pixel à partir d’un voisinage de taille fixe, qui ne grandit pas avec l’image. Le seuillage en est un exemple simple : il suffit de comparer l’intensité du pixel au seuil.</p>
+  <p><strong>Un traitement global</strong> peut faire dépendre ce résultat de valeurs situées n’importe où dans l’image. Pour la <a href="#comprendre-lpe">segmentation par ligne de partage des eaux</a>, les chemins reliant un pixel aux minima ou aux marqueurs peuvent s’étendre très loin : une information distante peut modifier la région à laquelle il appartient.</p>
+  <p>Un traitement local se prête trivialement au calcul par bloc. Pour un traitement global, <strong>traiter les blocs indépendamment ne garantit pas le résultat global</strong>. La thèse s’intéresse à ces traitements globaux et aux hiérarchies associées : l’enjeu est de préserver les relations entre régions tout en limitant les données chargées en mémoire.</p>
+  {% else %}
+  <p><strong>Local processing</strong> computes a pixel’s result from a fixed-size neighbourhood, which does not grow with the image. <strong>Thresholding with a fixed threshold</strong> is a simple example: each pixel’s intensity is compared with that threshold.</p>
+  <p><strong>Global processing</strong> can make the result depend on values anywhere in the image. For <a href="#understanding-watershed">watershed segmentation</a>, paths connecting a pixel to minima or markers can extend a long way: distant information can change the region to which it belongs.</p>
+  <p>Local processing can be computed block by block with a sufficient neighbourhood margin. For global processing, <strong>processing blocks independently does not guarantee the global result</strong>. The thesis focuses on these global operations and their associated hierarchies: the challenge is to preserve relationships between regions while limiting the data loaded into RAM.</p>
+  {% endif %}
+</aside>
+{% elsif include.kind == 'watershed' %}
+<aside class="l-body thesis-explainer" aria-labelledby="{% if explainer_fr %}comprendre-lpe{% else %}understanding-watershed{% endif %}">
+  <h3 id="{% if explainer_fr %}comprendre-lpe{% else %}understanding-watershed{% endif %}">{% if explainer_fr %}Comprendre la ligne de partage des eaux{% else %}Understanding watershed segmentation{% endif %}</h3>
+  {% if explainer_fr %}
+  <p>La <strong>ligne de partage des eaux (LPE)</strong> est un grand classique de la segmentation, présent dans la plupart des logiciels de traitement d’images, libres ou propriétaires. On la retrouve notamment dans <a href="https://imagej.net/plugins/morpholibj#watershed-segmentation">ImageJ/Fiji</a>, <a href="https://docs.itk.org/projects/doxygen/en/stable/group__ITKWatersheds.html">ITK</a> et Amira<sup>™</sup>/Avizo<sup>™</sup>.<d-cite key="vincent1991"></d-cite></p>
+  <p>Son intuition vient de l’hydrographie. On interprète une image comme un <strong>relief</strong> : l’intensité de chaque pixel devient une altitude, les zones sombres forment des vallées et les zones claires des crêtes. Une goutte d’eau descend vers un minimum ; les points drainés vers un même minimum forment un <strong>bassin versant</strong>. Les séparations entre bassins, depuis lesquelles une goutte peut rejoindre des minima distincts, définissent les frontières de la segmentation : c’est le <strong>principe de la goutte d’eau</strong>.<d-cite key="cousty2009"></d-cite></p>
+  {% else %}
+  <p><strong>Watershed segmentation</strong> is a standard method available in most image-processing software, both open-source and commercial. Implementations include <a href="https://imagej.net/plugins/morpholibj#watershed-segmentation">ImageJ/Fiji</a>, <a href="https://docs.itk.org/projects/doxygen/en/stable/group__ITKWatersheds.html">ITK</a>, and Amira<sup>™</sup>/Avizo<sup>™</sup>.<d-cite key="meyer2012watershed"></d-cite></p>
+  <p>The intuition comes from hydrology. An image is interpreted as a <strong>topographic relief</strong>: each pixel’s intensity becomes an elevation, dark areas form valleys, and bright areas form ridges. A drop of water flows downhill towards a minimum; points draining to the same minimum form a <strong>catchment basin</strong>. Separations between basins, from which a drop can reach distinct minima, define the segmentation boundaries: this is the <strong>drop of water principle</strong>.<d-cite key="vincent1991,cousty2009"></d-cite></p>
+  {% endif %}
+  <div class="thesis-explainer-pair thesis-explainer-triptych">
+    <figure>
+      <img src="{{ '/assets/img/posts/scalable-segmentation/watershed-intensity.jpg' | relative_url }}" width="1640" height="1240" loading="lazy" alt="{% if explainer_fr %}Image d’oxyde d’uranium en niveaux de gris : des régions sombres séparées par des contours clairs.{% else %}Grayscale uranium oxide image: dark regions separated by bright boundaries.{% endif %}" data-zoomable>
+      <figcaption>{% if explainer_fr %}Image en niveaux de gris{% else %}Grayscale image{% endif %}</figcaption>
+    </figure>
+    <figure>
+      <img src="{{ '/assets/img/posts/scalable-segmentation/watershed-relief.jpg' | relative_url }}" width="800" height="601" loading="lazy" alt="{% if explainer_fr %}Image représentée comme un relief topographique : les zones sombres forment des bassins et les contours clairs des crêtes.{% else %}Image represented as a topographic relief: dark areas form basins and bright boundaries form ridges.{% endif %}" data-zoomable>
+      <figcaption>{% if explainer_fr %}Relief topographique{% else %}Topographic relief{% endif %}</figcaption>
+    </figure>
+    <figure>
+      <img src="{{ '/assets/img/posts/scalable-segmentation/watershed-segmentation.jpg' | relative_url }}" width="820" height="620" loading="lazy" alt="{% if explainer_fr %}Exemple de segmentation par ligne de partage des eaux sur cette image : les frontières noires délimitent les bassins versants.{% else %}Example watershed segmentation of this image: black boundaries delineate the catchment basins.{% endif %}" data-zoomable>
+      <figcaption>{% if explainer_fr %}Segmentation par ligne de partage des eaux{% else %}Watershed segmentation{% endif %}</figcaption>
+    </figure>
+  </div>
+  <p class="thesis-explainer-source">{% if explainer_fr %}Image et relief : figure 2.2 du manuscrit. Exemple de segmentation : figure 2.3(d).<d-cite key="lefevre2026thesis"></d-cite>{% else %}Image and relief: thesis Figure 2.2. Example segmentation: Figure 2.3(d).<d-cite key="lefevre2026thesis"></d-cite>{% endif %}</p>
+  {% if explainer_fr %}
+  <p>En pratique, le relief peut aussi être construit à partir du gradient, qui accentue les frontières des objets. Dans la variante <strong>à marqueurs</strong>, on choisit les points de départ des bassins pour guider les régions obtenues. C’est le principe utilisé dans la <a href="#segmentation-interactive">segmentation interactive présentée plus loin</a>.</p>
+  {% else %}
+  <p>In practice, the relief can also be built from the <strong>gradient</strong>, which emphasizes object boundaries. In the <strong>marker-based</strong> variant, we choose the starting points of the basins to guide the resulting regions. This is the principle used in the <a href="#interactive-segmentation">interactive segmentation discussed below</a>.</p>
+  {% endif %}
+</aside>
+{% endif %}
